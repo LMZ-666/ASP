@@ -1,0 +1,189 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>test1</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        .hero {
+            height: 100%;
+            width: 100%;
+            background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(./imags/1.png);
+            background-position: center;
+            background-size: 100% 100%;
+            position: absolute;
+            overflow: hidden;
+        }
+
+        .form-box {
+            width: 380px;
+            height: 480px;
+            position: relative;
+            margin: 6% auto;
+            background: #fff;
+            padding: 5px;
+            overflow: hidden;
+        }
+
+        .button-box {
+            width: 380px;
+            margin: 35px auto;
+            position: relative;
+            box-shadow: 0 0 20px 9px #ff61241f;
+            border-radius: 30px;
+        }
+
+        .toggle-btn {
+            padding: 10px 30px;
+            cursor: pointer;
+            background: transparent;
+            border: 0;
+            outline: none;
+            position: relative;
+        }
+
+        #btn {
+            top: 0;
+            left: 0;
+            position: absolute;
+            width: 33%;
+            height: 100%;
+            background: linear-gradient(to right,#ff105f,#ffad06);
+            border-radius: 300px;
+            transition: .5s;
+        }
+
+        .input-group {
+            top: 180px;
+            position: absolute;
+            width: 280px;
+            transition: .5s;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px 0;
+            margin: 5px 0;
+            border-left: 0;
+            border-top: 0;
+            border-right: 0;
+            border-bottom: 1px solid #999;
+            outline: none;
+            background: transparent;
+        }
+
+        .submit-btn {
+            width: 85%;
+            padding: 10px 30px;
+            cursor: pointer;
+            display: block;
+            margin: auto;
+            background: linear-gradient(to right,#ff105f,#ffad06);
+            border: 0;
+            outline: none;
+            border-radius: 30px;
+        }
+
+        .chech-box {
+            margin: 30px 10px 30px 0;
+        }
+
+        span {
+            color: #777;
+            font-size: 12px;
+            bottom: 68px;
+            position: absolute;
+        }
+
+        #Student {
+            left: 50px;
+        }
+
+        #Teacher {
+            left: 450px;
+        }
+
+        #Adiministrator {
+            left: -400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1 align="center" class="title">上机考试系统用户登录</h1>
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="Student()">Student</button>
+                <button type="button" class="toggle-btn" onclick="Teacher()">Teacehr</button>
+                <button type="button" class="toggle-btn" onclick="Administrator()">Administrator</button>
+            </div>
+
+            <form id="Student" class="input-group" action="@Url.Action("Login", "Home")" method="post">
+                <h1 align="center" class="login_title">学生登陆</h1>
+                <input name="id" type="text" class="input-field" placeholder="学号"
+                       required>
+                <input name="pwd" type="password" class="input-field" placeholder="密码"
+                       required>
+                <button type="submit" class="submit-btn">登陆</button>
+            </form>
+
+            <form id="Teacher" class="input-group" action="teachloginmysql.jsp" method="post">
+                <h1 align="center" class="login_title">教师登陆</h1>
+                <input name="username2" type="text" class="input-field" placeholder="教工号"
+                       required>
+                <input name="pwd2" type="password" class="input-field" placeholder="密码"
+                       required>
+                <button type="submit" class="submit-btn">登陆</button>
+            </form>
+
+            <form id="Adiministrator" class="input-group" action="accessadministrator.jsp" method="post">
+                <h1 align="center" class="login_title">管理员登陆</h1>
+                <input name="username3" type="text" class="input-field" placeholder="User Id"
+                       required>
+                <input name="pwd3" type="password" class="input-field" placeholder="Enter Password"
+                       required>
+                <button type="submit" class="submit-btn">登陆</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+			var x=document.getElementById("Student");
+			var y=document.getElementById("Teacher");
+			var z=document.getElementById("btn");
+			var w=document.getElementById("Adiministrator");
+
+			function Teacher(){
+				x.style.left="-400px";
+				y.style.left="50px";
+				z.style.left="110px";
+				w.style.left="550px";
+			}
+
+			function Student(){
+				x.style.left="50px";
+				y.style.left="450px";
+				z.style.left="0px";
+				w.style.left="-400px";
+			}
+
+			function Administrator(){
+				x.style.left="-400px";
+				y.style.left="450px";
+				z.style.left="250px";
+				w.style.left="50px";
+			}
+    </script>
+</body>
+</html>
