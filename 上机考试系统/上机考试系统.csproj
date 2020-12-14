@@ -142,6 +142,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\student\studentAreaRegistration.cs" />
+    <Compile Include="Areas\Teacher\Controllers\TeacherController.cs" />
     <Compile Include="Areas\Teacher\TeacherAreaRegistration.cs" />
     <Compile Include="Controllers\DatabaseControllers\studentsController.cs" />
     <Compile Include="Controllers\DatabaseControllers\teachersController.cs" />
@@ -206,6 +207,9 @@
     </Content>
     <Content Include="Areas\student\Views\web.config" />
     <Content Include="Areas\Teacher\Views\web.config" />
+    <Content Include="Areas\Teacher\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Teacher\Views\Shared\_TeacherLayout.cshtml" />
+    <Content Include="Areas\Teacher\Views\Teacher\TeacherIndex.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -237,9 +241,7 @@
     <Folder Include="Areas\student\Controllers\" />
     <Folder Include="Areas\student\Data\" />
     <Folder Include="Areas\student\Views\Shared\" />
-    <Folder Include="Areas\Teacher\Controllers\" />
     <Folder Include="Areas\Teacher\Data\" />
-    <Folder Include="Areas\Teacher\Views\Shared\" />
     <Folder Include="Views\students\" />
     <Folder Include="Views\teachers\" />
   </ItemGroup>

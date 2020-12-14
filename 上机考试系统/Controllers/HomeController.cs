@@ -44,10 +44,13 @@ namespace 上机考试系统.Controllers
             student stu = db.student.Find(Student.Id);
 
             //根据查到的表对象进行判断(若为空，说明Id输入错误)
-            if (stu != null & stu.pwd == Student.pwd)
-                return RedirectToAction("Index");
+            if (stu != null)
+                if(stu.pwd == Student.pwd)
+                    return RedirectToAction("Index");
+                else
+                    return View("Login");
             else
-                return View();
+                return View("Login");
         }
 
         [HttpPost]
@@ -59,10 +62,13 @@ namespace 上机考试系统.Controllers
             teacher tch = db.teacher.Find(Teacher.Id);
 
             //根据查到的表对象进行判断(若为空，说明Id输入错误)
-            if (tch != null & tch.pwd == Teacher.pwd)
-                return RedirectToAction("Index");
+            if (tch != null)
+                if(tch.pwd == Teacher.pwd)
+                    return RedirectToAction("TeacherIndex", "Teacher", new { area = "Teacher", teacherName = tch.name});
+                else
+                    return View("Login");
             else
-                return View();
+                return View("Login");
         }
 
     }
