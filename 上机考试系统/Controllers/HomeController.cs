@@ -10,6 +10,7 @@ namespace 上机考试系统.Controllers
 {
     public class HomeController : Controller
     {
+        private DatabaseEntities db = new DatabaseEntities();
         public ActionResult Index()
         {
             return View();
@@ -35,9 +36,9 @@ namespace 上机考试系统.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(student Student)
+        public ActionResult LoginStudent(student Student)
         {
-            DatabaseEntities db = new DatabaseEntities();
+            //DatabaseEntities db = new DatabaseEntities();
 
             //得到从数据库中查询到的表对象
             student stu = db.student.Find(Student.Id);
@@ -47,7 +48,22 @@ namespace 上机考试系统.Controllers
                 return RedirectToAction("Index");
             else
                 return View();
-
         }
+
+        [HttpPost]
+        public ActionResult LoginTeacher(teacher Teacher)
+        {
+            //DatabaseEntities db = new DatabaseEntities();
+
+            //得到从数据库中查询到的表对象
+            teacher tch = db.teacher.Find(Teacher.Id);
+
+            //根据查到的表对象进行判断(若为空，说明Id输入错误)
+            if (tch != null & tch.pwd == Teacher.pwd)
+                return RedirectToAction("Index");
+            else
+                return View();
+        }
+
     }
 }

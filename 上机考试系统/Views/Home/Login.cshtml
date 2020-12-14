@@ -129,7 +129,7 @@
                 <button type="button" class="toggle-btn" onclick="Administrator()">Administrator</button>
             </div>
 
-            <form id="Student" class="input-group" action="@Url.Action("Login", "Home")" method="post">
+            <form id="Student" class="input-group" action="@Url.Action("LoginStudent", "Home")" method="post">
                 <h1 align="center" class="login_title">学生登陆</h1>
                 <input name="id" type="text" class="input-field" placeholder="学号"
                        required>
@@ -138,16 +138,16 @@
                 <button type="submit" class="submit-btn">登陆</button>
             </form>
 
-            <form id="Teacher" class="input-group" action="teachloginmysql.jsp" method="post">
+            <form id="Teacher" class="input-group" action="@Url.Action("LoginTeacher", "Home")" method="post">
                 <h1 align="center" class="login_title">教师登陆</h1>
-                <input name="username2" type="text" class="input-field" placeholder="教工号"
+                <input name="id" type="text" class="input-field" placeholder="教工号"
                        required>
-                <input name="pwd2" type="password" class="input-field" placeholder="密码"
+                <input name="pwd" type="password" class="input-field" placeholder="密码"
                        required>
                 <button type="submit" class="submit-btn">登陆</button>
             </form>
 
-            <form id="Adiministrator" class="input-group" action="accessadministrator.jsp" method="post">
+            <form id="Adiministrator" class="input-group" action="@Url.Action("LoginStudent", "Home")" method="post">
                 <h1 align="center" class="login_title">管理员登陆</h1>
                 <input name="username3" type="text" class="input-field" placeholder="User Id"
                        required>

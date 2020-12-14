@@ -144,6 +144,7 @@
     <Compile Include="Areas\student\studentAreaRegistration.cs" />
     <Compile Include="Areas\Teacher\TeacherAreaRegistration.cs" />
     <Compile Include="Controllers\DatabaseControllers\studentsController.cs" />
+    <Compile Include="Controllers\DatabaseControllers\teachersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -240,6 +241,7 @@
     <Folder Include="Areas\Teacher\Data\" />
     <Folder Include="Areas\Teacher\Views\Shared\" />
     <Folder Include="Views\students\" />
+    <Folder Include="Views\teachers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
