@@ -10,8 +10,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="name" Type="nchar" MaxLength="10" />
-          <Property Name="ip_address" Type="nchar" MaxLength="10" />
+          <Property Name="name" Type="nvarchar" MaxLength="10" />
+          <Property Name="pwd" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ip_address" Type="varchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="teacher">
           <Key>
@@ -34,8 +35,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ip_address" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ip_address" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="pwd" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="student" EntityType="Self.student" />
@@ -58,6 +60,7 @@
           <EntitySetMapping Name="student">
             <EntityTypeMapping TypeName="DatabaseModel.student">
               <MappingFragment StoreEntitySet="student">
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="ip_address" ColumnName="ip_address" />

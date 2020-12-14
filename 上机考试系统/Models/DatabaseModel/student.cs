@@ -17,5 +17,6 @@ namespace 上机考试系统.Models.DatabaseModel
         public int Id { get; set; }
         public string name { get; set; }
         public string ip_address { get; set; }
+        public string pwd { get; set; }
     }
 }
