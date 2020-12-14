@@ -37,13 +37,13 @@ namespace 上机考试系统.Controllers
         [HttpPost]
         public ActionResult Login(student Student)
         {
-            Database db = new Database();
+            DatabaseEntities db = new DatabaseEntities();
 
             //得到从数据库中查询到的表对象
-            student stu = db.student.Find(id);
+            student stu = db.student.Find(Student.Id);
 
-            //根据所写的sql语句，表中的行数应该是1，只要不为0，就说明查询到了该用户，重定向
-            if (stu != null)
+            //根据查到的表对象进行判断(若为空，说明Id输入错误)
+            if (stu != null & stu.pwd == Student.pwd)
                 return RedirectToAction("Index");
             else
                 return View();
