@@ -141,6 +141,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\student\Controllers\StudentController.cs" />
     <Compile Include="Areas\student\studentAreaRegistration.cs" />
     <Compile Include="Areas\Teacher\Controllers\TeacherController.cs" />
     <Compile Include="Areas\Teacher\TeacherAreaRegistration.cs" />
@@ -164,6 +165,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DatabaseModel\Exam.cs">
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DatabaseModel\student.cs">
       <DependentUpon>Database.tt</DependentUpon>
@@ -192,6 +196,7 @@
       <LastGenOutput>Database.Context.cs</LastGenOutput>
       <DependentUpon>Database.edmx</DependentUpon>
     </Content>
+    <Content Include="Models\DatabaseModel\Database.edmx.sql" />
     <Content Include="Models\DatabaseModel\Database.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Database.edmx</DependentUpon>
@@ -211,6 +216,9 @@
     <Content Include="Areas\Teacher\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Teacher\Views\Shared\_TeacherLayout.cshtml" />
     <Content Include="Areas\Teacher\Views\Teacher\TeacherIndex.cshtml" />
+    <Content Include="Areas\student\Views\Shared\_StudentLayout.cshtml" />
+    <Content Include="Areas\student\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\student\Views\Student\StudentIndex.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -239,9 +247,7 @@
     <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\student\Controllers\" />
     <Folder Include="Areas\student\Data\" />
-    <Folder Include="Areas\student\Views\Shared\" />
     <Folder Include="Areas\Teacher\Data\" />
     <Folder Include="Views\students\" />
     <Folder Include="Views\teachers\" />

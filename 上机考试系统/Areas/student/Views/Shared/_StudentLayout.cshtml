@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>学生界面</title>
+    <style type="text/css">
+        body {
+            min-width: 1424px;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .nav {
+            width: 100%;
+            width: -webkit-fill-available;
+            height: 60px;
+            background: black;
+        }
+
+        #li1title {
+            font-size: 20px;
+            margin-left: 100px;
+        }
+
+        .li1 {
+            text-decoration: none;
+            color: white;
+            margin: 5px 0 5px 0;
+        }
+
+            .li1:hover {
+                color: yellow;
+            }
+
+        .divli {
+            position: relative;
+            float: left;
+            margin: 25px 5px 20px 30px;
+            float: left;
+        }
+
+            .divli:hover {
+            }
+
+        #divli {
+            margin-top: 20px;
+            margin-left: 50px;
+        }
+
+        #divli1 {
+            margin-left: 400px;
+        }
+
+        .image1 {
+            width: 70px;
+            height: 70px;
+            margin-top: -10px;
+        }
+
+        .header {
+            display: inline-flex;
+            margin: 5px 0 0 150px;
+        }
+
+        .content {
+            display: inline-flex;
+        }
+
+        .content1, .content2, .content3 {
+            margin-left: 5px;
+            margin-right: 10px;
+            margin-top: 20px;
+            width: 100px;
+            padding-top: 18px;
+            padding-right: 12px;
+            padding-left: 12px;
+        }
+
+        .content1 {
+            margin-left: 150px;
+        }
+
+        .white_content {
+            display: none;
+            position: absolute;
+            top: 10%;
+            left: 72%;
+            width: 15%;
+            height: 40%;
+            padding: 30px;
+            border: 10px solid gray;
+            background-color: white;
+            z-index: 1002;
+            overflow: auto;
+            border-radius: 5px;
+        }
+
+        .input1 {
+            margin-bottom: 20px;
+        }
+
+        h6 {
+            font-size: 15px;
+        }
+
+        .sss {
+            text-decoration: none;
+            display: none;
+            color: white;
+        }
+
+        .secondmenudiv {
+            border-radius: 5px;
+            padding-bottom: 3px;
+            padding-left: 5px;
+            padding-right: 3px;
+        }
+
+        .secondmenudiv {
+            opacity: 0.9 !important;
+        }
+    </style>
+    <script type="text/javascript">
+        function disp() {
+            for (var i = 0; i < 4; i++) {
+                document.getElementsByClassName('sss')[i].style.display = 'block';
+
+            }
+        }
+
+        function out() {
+            for (var i = 0; i < 4; i++) {
+                document.getElementsByClassName('sss')[i].style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="nav">
+        <div class="divli" id="divli">
+            <a class="li1" id="li1title" href="login.html">欢迎使用LF考试系统</a>
+        </div>
+        <div class="divli">
+            <a class="li1" href=@Url.Content("StudentIndex")>首页</a>
+        </div>
+        <div class="divli">
+            <a class="li1" href="">开始考试</a>
+        </div>
+        <div class="divli">
+            <a class="li1" id="secondmenu" onmouseover="disp()"
+               onmouseleave="out()" href="#">查看已交答案</a>
+        </div>
+        <div class="divli">
+            <a class="li1" href="">查看已绑定的IP地址</a>
+        </div>
+
+        <div class="divli" id="divli1">
+            <a class="li1" href="">欢迎你</a>
+        </div>
+
+        @*<div class="divli">
+                <a class="li1" href="javascript:void(0)"
+                   onclick="document.getElementById('light').style.display='block';">修改口令</a>
+            </div>*@
+        <div class="divli">
+            <a class="li1" href=@Url.Content("/Home/Login")>退出</a>
+        </div>
+    </div>
+    <br>
+    <div class="header">
+
+        <div class="img1">
+            <img class="image1" alt="没有找到图片" src="/image/考试.png">
+        </div>
+        <div style="margin: 0 0 0 10px;">
+            <h2 style="font-size: 30px; margin: 6px 0 0 7px">上机考试系统</h2>
+        </div>
+    </div>
+    <br>
+
+    <div>
+        @RenderBody()
+    </div>
+
+    @*<div id="light" class="white_content">
+        <div style="display: inline-flex;">
+            <h3 style="margin: 0px 0 18px 0px;">修改口令</h3>
+            <a style="margin-left: 87px; text-decoration: none; color: lightblue;"
+               href="javascript:void(0)"
+               onclick="document.getElementById('light').style.display='none';">点击取消</a>
+        </div>
+
+        <div style="padding: 10px; background: lightgray; text-align: center;">
+            <form action="teachmodifypwd.jsp" method="post">
+                <input class="input1" style="margin-top: 5px;" type="text"
+                       name="oldpwd" placeholder="原口令"><br> <input class="input1" type="password" name="newpwd" placeholder="新口令"><br>
+                <input class="input1" type="password" name="repeatnewpwd"
+                       placeholder="重输新口令"><br> <input class="input1"
+                                                       type="submit" value="修改"
+                                                       style="background: lightgray; width: 160px;">
+            </form>
+        </div>*@
+    @*
+    </div>
+
+
+    <div class="secondmenudiv" onmouseover="disp()" onmouseout="out()"
+         style="background: rgba(0, 0, 0, 0.5); position: absolute; top: 50px; left: 550px; width: 70px; filter: alpha(opacity = 90); zoom: 1;">
+        <a class="sss" href="">考试概况</a> <a class="sss"
+                                           href="">学生信息</a> <a class="sss"
+                                                               href="">解除绑定</a> <a class="sss"
+                                                                                   href="">通过管理</a>
+
+    </div>
+       *@
+</body>
+</html>

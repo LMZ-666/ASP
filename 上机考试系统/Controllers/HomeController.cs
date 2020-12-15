@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Runtime.InteropServices.ComTypes;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using 上机考试系统.Models.DatabaseModel;
@@ -45,12 +48,53 @@ namespace 上机考试系统.Controllers
 
             //根据查到的表对象进行判断(若为空，说明Id输入错误)
             if (stu != null)
-                if(stu.pwd == Student.pwd)
-                    return RedirectToAction("Index");
+                if (stu.pwd == Student.pwd)
+                {
+                    
+                    IPHostEntry host = Dns.GetHostEntry("");
+                    var ipAdresses = host.AddressList;
+                    Student.ip_address = ipAdresses[5].ToString();
+                    var g = from t in db.student
+                            where t.ip_address == Student.ip_address
+                            select t;
+                    if (stu.ip_address != null)
+                    {
+
+                        if (stu.ip_address == Student.ip_address)
+                        {
+                            return RedirectToAction("StudentIndex", "Student", new { area = "Student", studentName = stu.name });
+                        }
+                        else
+                        {
+                            return Content("<script >alert('登录的IP地址非法');window.open('" + Url.Content("/Home/Login") + "', '_self')</script >", "text/html");
+                        }
+                    }
+                    else
+                    {
+                        if (g != null)
+                        {
+                            return Content("<script >alert('登录的IP地址非法');window.open('" + Url.Content("/Home/Login") + "', '_self')</script >", "text/html");
+                        }
+                        else
+                        {
+                            student ST = new student();
+                            ST.Id = stu.Id;
+                            ST.name = stu.name;
+                            ST.pwd = stu.pwd;
+                            ST.ip_address = Student.ip_address;
+                            db.student.Remove(stu);
+                            db.student.Add(ST);
+                            db.SaveChanges();
+                            return RedirectToAction("StudentIndex", "Student", new { area = "Student", studentName = stu.name });
+                        }
+
+                    }
+                }
                 else
                     return Content("<script >alert('账号或密码错误');window.open('" + Url.Content("/Home/Login") + "', '_self')</script >", "text/html");
             else
                 return Content("<script >alert('账号或密码错误');window.open('" + Url.Content("/Home/Login") + "', '_self')</script >", "text/html");
+            
         }
 
         [HttpPost]

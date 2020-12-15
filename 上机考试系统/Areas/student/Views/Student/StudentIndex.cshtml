@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "StudentIndex";
+}
+
+<style type="text/css">
+    .content {
+        display: inline-flex;
+    }
+
+    .content1, .content2, .content3 {
+        margin-left: 5px;
+        margin-right: 10px;
+        margin-top: 20px;
+        width: 100px;
+        padding-top: 18px;
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .content1 {
+        margin-left: 150px;
+    }
+</style>
+
+<h2 text-align : center>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp欢迎你，@ViewBag.studentName</h2>
+
+<div class="content">
+    <div class="content1"
+         style="border-radius: 5px; width: 350px; background: lightgray; height: 350px;">
+        <h6 style="margin: 0px;">开始考试</h6>
+        <ul style="margin-left: -14px;">
+            <li>可以在该界面进行作答</li>
+            <li>考试时间开始以后才可以进行作答，请在考试结束之前提交答卷</li>
+
+        </ul>
+    </div>
+    <div class="content2"
+         style="border-radius: 5px; height: 350px; width: 350px; background: lightgray;">
+        <h6 style="margin: 0px;">查看已提交答卷</h6>
+        <ul style="margin-left: -14px;">
+            <li>可以查看已提交试卷</li>
+            <li>如果有任何疑问，请及时联系监考教师</li>
+        </ul>
+    </div>
+    <div class="content3"
+         style="border-radius: 5px; width: 350px; background: lightgray; height: 350px;">
+        <h6 style="margin: 0px;">查看已经绑定的IP地址</h6>
+        <ul style="margin-left: -14px;">
+            <li>系统绑定的IP地址是学生第一次登录到考试系统的IP地址</li>
+            <li>如果绑定的IP地址与考生考试时的IP地址不一致，则不允许登录考试系统</li>
+        </ul>
+    </div>
+</div>
