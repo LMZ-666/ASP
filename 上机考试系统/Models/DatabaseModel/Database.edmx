@@ -9,12 +9,12 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" />
           <Property Name="time" Type="nvarchar" MaxLength="50" />
           <Property Name="creatorId" Type="int" Nullable="false" />
           <Property Name="creator" Type="nchar" MaxLength="10" />
-          <Property Name="test_upload" Type="varchar" MaxLength="50" />
+          <Property Name="test_upload" Type="nvarchar" MaxLength="50" />
           <Property Name="commmit_number" Type="int" />
           <Property Name="is_being" Type="nchar" MaxLength="1" />
           <Property Name="has_saved" Type="nchar" MaxLength="1" />
@@ -77,7 +77,7 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="creatorId" Type="Int32" Nullable="false" />
-          <Property Name="test_upload" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="test_upload" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="commmit_number" Type="Int32" />
           <Property Name="is_being" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="has_saved" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />

@@ -113,7 +113,7 @@ namespace 上机考试系统.Controllers
             //根据查到的表对象进行判断(若为空，说明Id输入错误)
             if (tch != null)
                 if (tch.pwd == Teacher.pwd)
-                    return RedirectToAction("TeacherIndex", "Teacher", new { area = "Teacher", teacherName = tch.name });
+                    return RedirectToAction("Initial", "Teacher", new { area = "Teacher", teacherName = tch.name, teacherId = tch.Id });
                 else
                     return Content("<script >alert('账号或密码错误');window.open('" + Url.Content("/Home/Login") + "', '_self')</script >", "text/html");
             else

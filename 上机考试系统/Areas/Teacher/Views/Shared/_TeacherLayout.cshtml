@@ -52,10 +52,6 @@
             <a class="li1" href="">欢迎教师</a>
         </div>
 
-        @*<div class="divli">
-                <a class="li1" href="javascript:void(0)"
-                   onclick="document.getElementById('light').style.display='block';">修改口令</a>
-            </div>*@
         <div class="divli">
             <a class="li1" href=@Url.Content("/Home/Login")>退出</a>
         </div>
@@ -75,26 +71,6 @@
     <div>
         @RenderBody()
     </div>
-
-    @*<div id="light" class="white_content">
-        <div style="display: inline-flex;">
-            <h3 style="margin: 0px 0 18px 0px;">修改口令</h3>
-            <a style="margin-left: 87px; text-decoration: none; color: lightblue;"
-               href="javascript:void(0)"
-               onclick="document.getElementById('light').style.display='none';">点击取消</a>
-        </div>
-
-        <div style="padding: 10px; background: lightgray; text-align: center;">
-            <form action="teachmodifypwd.jsp" method="post">
-                <input class="input1" style="margin-top: 5px;" type="text"
-                       name="oldpwd" placeholder="原口令"><br> <input class="input1" type="password" name="newpwd" placeholder="新口令"><br>
-                <input class="input1" type="password" name="repeatnewpwd"
-                       placeholder="重输新口令"><br> <input class="input1"
-                                                       type="submit" value="修改"
-                                                       style="background: lightgray; width: 160px;">
-            </form>
-        </div>*@
-
     </div>
 
 
