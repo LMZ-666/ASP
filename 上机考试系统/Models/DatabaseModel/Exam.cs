@@ -23,5 +23,7 @@ namespace 上机考试系统.Models.DatabaseModel
         public string is_being { get; set; }
         public string has_saved { get; set; }
         public string has_cleaned { get; set; }
+        public string creator { get; set; }
+        public string has_stopped { get; set; }
     }
 }

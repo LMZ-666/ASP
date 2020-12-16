@@ -13,11 +13,13 @@
           <Property Name="name" Type="nvarchar" MaxLength="50" />
           <Property Name="time" Type="nvarchar" MaxLength="50" />
           <Property Name="creatorId" Type="int" Nullable="false" />
+          <Property Name="creator" Type="nchar" MaxLength="10" />
           <Property Name="test_upload" Type="varchar" MaxLength="50" />
           <Property Name="commmit_number" Type="int" />
           <Property Name="is_being" Type="nchar" MaxLength="1" />
           <Property Name="has_saved" Type="nchar" MaxLength="1" />
           <Property Name="has_cleaned" Type="nchar" MaxLength="1" />
+          <Property Name="has_stopped" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="student">
           <Key>
@@ -80,35 +82,39 @@
           <Property Name="is_being" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="has_saved" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="has_cleaned" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="creator" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="has_stopped" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
-    <EntitySetMapping Name="student">
-      <EntityTypeMapping TypeName="IsTypeOf(DatabaseModel.student)">
-        <MappingFragment StoreEntitySet="student">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="ip_address" ColumnName="ip_address" />
-          <ScalarProperty Name="pwd" ColumnName="pwd" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="teacher">
-      <EntityTypeMapping TypeName="IsTypeOf(DatabaseModel.teacher)">
-        <MappingFragment StoreEntitySet="teacher">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="pwd" ColumnName="pwd" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="student">
+            <EntityTypeMapping TypeName="DatabaseModel.student">
+              <MappingFragment StoreEntitySet="student">
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="ip_address" ColumnName="ip_address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teacher">
+            <EntityTypeMapping TypeName="DatabaseModel.teacher">
+              <MappingFragment StoreEntitySet="teacher">
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Exam">
             <EntityTypeMapping TypeName="DatabaseModel.Exam">
               <MappingFragment StoreEntitySet="Exam">
+                <ScalarProperty Name="has_stopped" ColumnName="has_stopped" />
+                <ScalarProperty Name="creator" ColumnName="creator" />
                 <ScalarProperty Name="has_cleaned" ColumnName="has_cleaned" />
                 <ScalarProperty Name="has_saved" ColumnName="has_saved" />
                 <ScalarProperty Name="is_being" ColumnName="is_being" />
@@ -121,8 +127,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-  </EntityContainerMapping>
-</Mapping></edmx:Mappings>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -136,7 +143,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
       </DesignerInfoPropertySet>
     </Options>

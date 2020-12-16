@@ -1,0 +1,61 @@
+﻿@model IEnumerable<上机考试系统.Models.DatabaseModel.Exam>
+@{
+    ViewBag.Title = "BeforeTest";
+    Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<link href="~/StyleSheet1.css" rel="stylesheet" type="text/css" />
+
+
+<div class="addtest">
+    <h2 style="margin: 10px 0 0 30px; font-size: 18px;">添加考试</h2>
+    <div class="form1">
+        <form style="margin-left: 30px;" action="BeforeTest" method="post">
+            <input type="text" name="name" placeholder="考试名称*"> 
+            <input type="date" name="time" placeholder="考试时间*">
+            <input type="submit" name="addtestbtn" value="添加" style="background: lightgray;">
+        </form>
+    </div>
+</div>
+
+<div class="tableform">
+    <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+            <tr>
+                <td style="width: 200px;">考试名称</td>
+                <td style="width: 200px;">考试时间</td>
+                <td style="width: 120px;">创建人</td>
+                <td style="width: 133px;">上传试卷</td>
+                @*<td style="width: 83px;">自动开始</td>*@
+                <td style="width: 80px; height: 30px;">进行中</td>
+                <td style="width: 80px;">已结束</td>
+                <td style="width: 80px;">已归档</td>
+                <td style="width: 80px;">已清理</td>
+                <td style="width: 100px;">
+                    <button onclick="javascrtpt:jump()"
+                            style="background: blue;"></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <table class="table1" border="0" cellspacing="0" cellpadding="0">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="width: 200px;">@item.name</td>
+                <td style="width: 200px;">@item.time</td>
+                <td style="width: 120px;">@item.creator</td>
+                <td style="width: 133px;"> @item.test_upload</td>
+                <td style="width: 80px; height: 30px;">@item.is_being</td>
+                <td style="width: 80px;">@item.has_stopped</td>
+                <td style="width: 80px;">@item.has_saved</td>
+                <td style="width: 80px;">@item.has_cleaned</td>
+                <td style="width: 100px;">
+                    <a href=''>点击修改</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
