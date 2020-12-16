@@ -4,46 +4,47 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DatabaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="DatabaseModelStoreContainer">
-    <EntitySet Name="student" EntityType="DatabaseModel.Store.student" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="teacher" EntityType="DatabaseModel.Store.teacher" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Exam" EntityType="DatabaseModel.Store.Exam" store:Type="Tables" Schema="dbo" />
-  </EntityContainer>
-  <EntityType Name="student">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-    <Property Name="name" Type="nvarchar" Nullable="true" MaxLength="10" />
-    <Property Name="ip_address" Type="varchar" Nullable="true" MaxLength="15" />
-    <Property Name="pwd" Type="varchar" Nullable="false" MaxLength="20" />
-  </EntityType>
-  <EntityType Name="teacher">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-    <Property Name="name" Type="nvarchar" Nullable="true" MaxLength="10" />
-    <Property Name="pwd" Type="varchar" Nullable="false" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Exam">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-    <Property Name="name" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="time" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="creatorId" Type="int" Nullable="false" />
-    <Property Name="test_upload" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="commmit_number" Type="int" Nullable="true" />
-    <Property Name="is_being" Type="nchar" Nullable="true" MaxLength="1" />
-    <Property Name="has_saved" Type="nchar" Nullable="true" MaxLength="1" />
-    <Property Name="has_cleaned" Type="nchar" Nullable="true" MaxLength="1" />
-    <Property Name="creator" Type="nchar" Nullable="true" MaxLength="10" />
-    <Property Name="has_stopped" Type="nchar" Nullable="true" MaxLength="10" />
-  </EntityType>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="time" Type="nvarchar" MaxLength="50" />
+          <Property Name="creatorId" Type="int" Nullable="false" />
+          <Property Name="creator" Type="nchar" MaxLength="10" />
+          <Property Name="test_upload" Type="nvarchar" MaxLength="50" />
+          <Property Name="commmit_number" Type="int" />
+          <Property Name="is_being" Type="nchar" MaxLength="1" />
+          <Property Name="has_saved" Type="nchar" MaxLength="1" />
+          <Property Name="has_cleaned" Type="nchar" MaxLength="1" />
+          <Property Name="has_stopped" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="10" />
+          <Property Name="pwd" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ip_address" Type="varchar" MaxLength="15" />
+          <Property Name="exam_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="teacher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="10" />
+          <Property Name="pwd" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="Exam" EntityType="Self.Exam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="student" EntityType="Self.student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="teacher" EntityType="Self.teacher" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -55,6 +56,7 @@
           <Property Name="name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="ip_address" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="pwd" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="exam_Id" Type="Int32" />
         </EntityType>
         <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="student" EntityType="Self.student" />
@@ -89,46 +91,48 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
-    <EntitySetMapping Name="student">
-      <EntityTypeMapping TypeName="IsTypeOf(DatabaseModel.student)">
-        <MappingFragment StoreEntitySet="student">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="ip_address" ColumnName="ip_address" />
-          <ScalarProperty Name="pwd" ColumnName="pwd" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="teacher">
-      <EntityTypeMapping TypeName="IsTypeOf(DatabaseModel.teacher)">
-        <MappingFragment StoreEntitySet="teacher">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="pwd" ColumnName="pwd" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Exam">
-      <EntityTypeMapping TypeName="IsTypeOf(DatabaseModel.Exam)">
-        <MappingFragment StoreEntitySet="Exam">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="time" ColumnName="time" />
-          <ScalarProperty Name="creatorId" ColumnName="creatorId" />
-          <ScalarProperty Name="test_upload" ColumnName="test_upload" />
-          <ScalarProperty Name="commmit_number" ColumnName="commmit_number" />
-          <ScalarProperty Name="is_being" ColumnName="is_being" />
-          <ScalarProperty Name="has_saved" ColumnName="has_saved" />
-          <ScalarProperty Name="has_cleaned" ColumnName="has_cleaned" />
-          <ScalarProperty Name="creator" ColumnName="creator" />
-          <ScalarProperty Name="has_stopped" ColumnName="has_stopped" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-  </EntityContainerMapping>
-</Mapping></edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="student">
+            <EntityTypeMapping TypeName="DatabaseModel.student">
+              <MappingFragment StoreEntitySet="student">
+                <ScalarProperty Name="exam_Id" ColumnName="exam_Id" />
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="ip_address" ColumnName="ip_address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teacher">
+            <EntityTypeMapping TypeName="DatabaseModel.teacher">
+              <MappingFragment StoreEntitySet="teacher">
+                <ScalarProperty Name="pwd" ColumnName="pwd" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exam">
+            <EntityTypeMapping TypeName="DatabaseModel.Exam">
+              <MappingFragment StoreEntitySet="Exam">
+                <ScalarProperty Name="has_stopped" ColumnName="has_stopped" />
+                <ScalarProperty Name="creator" ColumnName="creator" />
+                <ScalarProperty Name="has_cleaned" ColumnName="has_cleaned" />
+                <ScalarProperty Name="has_saved" ColumnName="has_saved" />
+                <ScalarProperty Name="is_being" ColumnName="is_being" />
+                <ScalarProperty Name="commmit_number" ColumnName="commmit_number" />
+                <ScalarProperty Name="test_upload" ColumnName="test_upload" />
+                <ScalarProperty Name="creatorId" ColumnName="creatorId" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -142,7 +146,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
       </DesignerInfoPropertySet>
     </Options>
