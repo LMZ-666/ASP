@@ -9,7 +9,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
 {
     public class TeacherController : Controller
     {
-        public string TEACHER
+        public string TEACHER;
         private DatabaseEntities db = new DatabaseEntities();
         // GET: Teacher/Teacher
         public ActionResult TeacherIndex(String teacherName)
@@ -27,7 +27,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         public ActionResult BeforeTest(Exam exam)
         {
             exam.Id = 2;
-            exam.creator = 
+            exam.creator = "";
             db.Exam.Add(exam);
             db.SaveChanges();
             return View(db.Exam.ToList());

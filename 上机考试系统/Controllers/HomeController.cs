@@ -55,14 +55,15 @@ namespace 上机考试系统.Controllers
                     var ipAdresses = host.AddressList;
                     Student.ip_address = ipAdresses[5].ToString();
                     var g = from t in db.student
-                            where t.ip_address == Student.ip_address
+                            where t.ip_address == Student.ip_address&&t.ip_address!=null
                             select t;
+                    List<student> p = g.ToList();
                     if (stu.ip_address != null)
                     {
 
                         if (stu.ip_address == Student.ip_address)
                         {
-                            return RedirectToAction("StudentIndex", "Student", new { area = "Student", studentName = stu.name });
+                            return RedirectToAction("StudentIndex", "Student", new { area = "student", studentName = stu.name });
                         }
                         else
                         {
@@ -71,9 +72,11 @@ namespace 上机考试系统.Controllers
                     }
                     else
                     {
-                        if (g != null)
+                        
+                        if (p.Count != 0)
                         {
                             return Content("<script >alert('登录的IP地址非法');window.open('" + Url.Content("/Home/Login") + "', '_self')</script >", "text/html");
+
                         }
                         else
                         {
@@ -86,6 +89,8 @@ namespace 上机考试系统.Controllers
                             db.student.Add(ST);
                             db.SaveChanges();
                             return RedirectToAction("StudentIndex", "Student", new { area = "Student", studentName = stu.name });
+
+                            
                         }
 
                     }

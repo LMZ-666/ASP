@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using 上机考试系统.Models.DatabaseModel;
 
 namespace 上机考试系统.Areas.student.Controllers
 {
@@ -13,10 +12,6 @@ namespace 上机考试系统.Areas.student.Controllers
         public ActionResult StudentIndex(String studentName)
         {
             ViewBag.studentName = studentName;
-            return View();
-        }
-        public ActionResult StartTest(Exam exam)
-        {
             return View();
         }
     }
