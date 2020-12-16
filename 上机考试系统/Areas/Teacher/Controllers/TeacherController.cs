@@ -9,12 +9,20 @@ namespace 上机考试系统.Areas.Teacher.Controllers
 {
     public class TeacherController : Controller
     {
-        public string TEACHER
+        public String TEACHER;
+        public int TEACHERID;
         private DatabaseEntities db = new DatabaseEntities();
         // GET: Teacher/Teacher
-        public ActionResult TeacherIndex(String teacherName)
+        public ActionResult Initial(String teacherName, int teacherId)
         {
-            ViewBag.teacherName = teacherName;
+            TEACHER = teacherName;
+            TEACHERID = teacherId;
+            return RedirectToAction("TeacherIndex"); 
+        }
+
+        public ActionResult TeacherIndex()
+        {
+            ViewBag.teacherName = TEACHER;
             return View();
         }
 
@@ -26,8 +34,9 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         [HttpPost]
         public ActionResult BeforeTest(Exam exam)
         {
-            exam.Id = 2;
-            exam.creator = 
+            exam.Id = 3;
+            exam.creator = "黄亚博";
+            exam.creatorId = 1;
             db.Exam.Add(exam);
             db.SaveChanges();
             return View(db.Exam.ToList());
