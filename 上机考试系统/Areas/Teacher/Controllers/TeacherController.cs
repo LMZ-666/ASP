@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Runtime.InteropServices.ComTypes;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using 上机考试系统.Models.DatabaseModel;
@@ -9,8 +13,8 @@ namespace 上机考试系统.Areas.Teacher.Controllers
 {
     public class TeacherController : Controller
     {
-        public String TEACHER;
-        public int TEACHERID;
+        public static String TEACHER;
+        public static int TEACHERID;
         private DatabaseEntities db = new DatabaseEntities();
         // GET: Teacher/Teacher
         public ActionResult Initial(String teacherName, int teacherId)
@@ -35,8 +39,8 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         public ActionResult BeforeTest(Exam exam)
         {
             exam.Id = db.Exam.ToList().Count+1;
-            exam.creator = "黄亚博";
-            exam.creatorId = 1;
+            exam.creator = TEACHER;
+            exam.creatorId = TEACHERID;
             exam.has_cleaned = "否";
             exam.has_saved = "否";
             exam.has_stopped = "否";
@@ -81,6 +85,35 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             db.Exam.Add(exam);
             db.SaveChanges();
             return RedirectToAction("BeforeTest");
+        }
+
+        public ActionResult TestCondition()
+        {
+            Exam exam = new Exam();
+            foreach (var item in db.Exam.ToList())
+            {
+                if(item.is_being == "是")
+                {
+                    exam = item;
+                    break;
+                }
+            }
+            ViewBag.examName = exam.name;
+            var g = from t in db.student
+                    where t.exam_Id == exam.Id
+                    select t;
+            var p = g.ToList();
+            ViewBag.student_all = p.Count;
+
+            g = from t in db.student
+                    where t.ip_address != null
+                    select t;
+            p = g.ToList();
+            ViewBag.student_login = p.Count;
+            ViewBag.student_notlogin = ViewBag.student_all - ViewBag.student_login;
+            ViewBag.commit_num = exam.commmit_number;
+            ViewBag.notcommit_num = ViewBag.student_login - ViewBag.commit_num;
+            return View(); 
         }
     }
 }

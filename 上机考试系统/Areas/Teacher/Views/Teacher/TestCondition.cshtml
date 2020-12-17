@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "TestCondition";
+    Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+}
+<style>
+    .condition {
+        margin-left: 150px;
+        margin-top: 7px;
+        width: 1140px;
+        height: 300px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        padding-top: 10px;
+    }
+</style>
+
+<div class="condition">
+    <h2 style="margin: 10px 0 0 10px;font-size: 18px;">
+        @ViewBag.examName 考试进行概况
+        <br><br>
+        <div class="studentnumber">
+            <span style="margin-left: 10px;">
+                参加考试学生总数：@ViewBag.student_all
+            </span><br><br>
+            <span style="margin-left: 10px;">
+                已登录学生数量：@ViewBag.student_login
+            </span><br><br>
+            <span style="margin-left: 10px;">
+                未登录学生数量：@ViewBag.student_notlogin
+            </span><br><br>
+            <span style="margin-left: 10px;">
+                已登录学生中，提交文件学生数量：@ViewBag.commit_num
+            </span><br><br>
+            <span style="margin-left: 10px;">
+                未提交文件学生数量：@ViewBag.notcommit_num
+            </span>
+        </div>
+
+    </h2>
+
+</div>
+
