@@ -34,6 +34,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         [HttpPost]
         public ActionResult BeforeTest(Exam exam)
         {
+            exam.Id = db.Exam.ToList().Count+1;
             exam.creator = "黄亚博";
             exam.creatorId = 1;
             exam.has_cleaned = "否";
@@ -44,6 +45,42 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             db.Exam.Add(exam);
             db.SaveChanges();
             return View(db.Exam.ToList());
+        }
+
+        public ActionResult ExamEdit(int exam_Id)
+        {
+            ViewBag.exam_Id = exam_Id;
+            Exam exam = db.Exam.Find(exam_Id);
+            var exams = db.Exam.ToList();
+            int has_exambeing = 0;
+            foreach (var item in exams)
+            {
+                if(item.is_being == "是")
+                {
+                    has_exambeing = 1;
+                }
+            }
+            ViewBag.has_exambeing = has_exambeing;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ExamEdit(Exam exam)
+        {
+            Exam exam1 = db.Exam.Find(exam.Id);
+            exam.Id = exam1.Id;
+            exam.creator = exam1.creator;
+            exam.creatorId = exam1.creatorId;
+            exam.has_cleaned = exam1.has_cleaned;
+            exam.has_saved = exam1.has_saved;
+            exam.has_stopped = exam1.has_stopped;
+            exam.is_being = exam1.is_being;
+            exam.test_upload = exam1.test_upload;
+            db.Exam.Remove(exam1);
+            db.SaveChanges();
+            db.Exam.Add(exam);
+            db.SaveChanges();
+            return RedirectToAction("BeforeTest");
         }
     }
 }
