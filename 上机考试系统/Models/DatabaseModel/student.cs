@@ -12,7 +12,7 @@ namespace 上机考试系统.Models.DatabaseModel
     using System;
     using System.Collections.Generic;
     
-    public partial class student
+    public partial class Student
     {
         public int Id { get; set; }
         public string name { get; set; }

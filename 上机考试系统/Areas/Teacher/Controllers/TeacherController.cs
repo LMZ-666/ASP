@@ -115,5 +115,17 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             ViewBag.notcommit_num = ViewBag.student_login - ViewBag.commit_num;
             return View(); 
         }
+
+        public ActionResult StudentInfo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult StudentInfo(Student stu)
+        {
+
+            return View();
+        }
     }
 }
