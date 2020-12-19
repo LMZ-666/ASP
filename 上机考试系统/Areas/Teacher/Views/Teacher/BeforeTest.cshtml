@@ -2,6 +2,12 @@
 @{
     ViewBag.Title = "BeforeTest";
     Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+    var ajaxOptions = new AjaxOptions
+    {
+        LoadingElementId = "loading",
+        UpdateTargetId = "mainWindow",
+        OnFailure = "OnFailure"
+    };
 }
 
 <link href="~/StyleSheet1.css" rel="stylesheet" type="text/css" />
@@ -39,23 +45,29 @@
         </tbody>
     </table>
 
-
     <table class="table1" border="0" cellspacing="0" cellpadding="0">
         @foreach (var item in Model)
         {
-            <tr>
-                <td style="width: 200px;">@item.name</td>
-                <td style="width: 200px;">@item.time</td>
-                <td style="width: 120px;">@item.creator</td>
-                <td style="width: 133px;"> @item.test_upload</td>
-                <td style="width: 80px; height: 30px;">@item.is_being</td>
-                <td style="width: 80px;">@item.has_stopped</td>
-                <td style="width: 80px;">@item.has_saved</td>
-                <td style="width: 80px;">@item.has_cleaned</td>
-                <td style="width: 100px;">
-                    <a href=''>点击修改</a>
-                </td>
-            </tr>
+        <tr>
+            <td style="width: 200px;">@item.name</td>
+            <td style="width: 200px;">@item.time</td>
+            <td style="width: 120px;">@item.creator</td>
+            <td style="width: 133px;"> @item.test_upload</td>
+            <td style="width: 80px; height: 30px;">@item.is_being</td>
+            <td style="width: 80px;">@item.has_stopped</td>
+            <td style="width: 80px;">@item.has_saved</td>
+            <td style="width: 80px;">@item.has_cleaned</td>
+            @if(item.is_being == "否")
+            {
+            <td style="width: 100px;">
+                @Ajax.ActionLink("编辑考试", "ExamEdit", "Teacher", new { area = "Teacher", exam_Id = item.Id }, ajaxOptions)
+            </td>
+            }
+            else
+            {
+                <td style="width: 100px;">该考试进行中</td>
+            }
+        </tr>
         }
     </table>
 </div>

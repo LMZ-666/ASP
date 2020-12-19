@@ -1,0 +1,138 @@
+﻿@model IEnumerable<上机考试系统.Models.DatabaseModel.Student>
+@{
+    ViewBag.Title = "StudentInfo";
+    Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<style type="text/css">
+    .addsinglestudent {
+        margin-left: 150px;
+        margin-right: 230px;
+        margin-top: 15px;
+        background: lightgray;
+        border-radius: 15px;
+        height: 90px;
+        position: relative;
+        padding: 10px 0 0 20px;
+    }
+
+    .searchstudentinformmation {
+        margin-left: 150px;
+        margin-right: 230px;
+        margin-top: 15px;
+        background: lightgray;
+        border-radius: 15px;
+        height: 90px;
+        position: relative;
+        padding: 10px 0 0 20px;
+    }
+
+    .searchresult {
+        margin-left: 147px;
+        margin-top: 6px;
+        width: 1150px;
+        height: 80px;
+        background: white;
+        border-radius: 5px;
+        padding-top: 10px;
+    }
+
+    .number {
+        width: 220px;
+    }
+
+    .name {
+        width: 160px;
+    }
+
+    .classroom {
+        width: 220px;
+    }
+
+    .ipaddress {
+        width: 220px;
+    }
+
+    .other {
+        width: 200px;
+    }
+
+    table,
+    td {
+        border: 1px solid lightgray;
+    }
+
+    td {
+        padding-left: 4px;
+    }
+</style>
+
+@if (ViewBag.has_exambeing != 0)
+{
+    <div class="addsinglestudent">
+        <div style="margin: 10px 0 5px 0px;">
+            <h6 style="margin:0;font-size: 18px;">添加单个学生</h6>
+        </div>
+        <div class="form">
+            <form action="StudentInfo_add" method="post">
+                <input type="text" name="Id" placeholder="学号">
+                <input type="text" name="name" placeholder="姓名">
+                <input style="background: lightgray;border-radius: 5px;" type="submit" name="btn1" value="+添加">
+            </form>
+        </div>
+
+    </div>
+
+    <div class="searchstudentinformmation">
+        <div style="margin: 10px 0 5px 0px;">
+            <h6 style="margin:0;font-size: 18px;">查找本次考试已登陆学生信息</h6>
+        </div>
+        <div class="form">
+            <form action="StudentInfo" method="post">
+                <input type="text" name="Id" placeholder="学号">
+                <input type="text" name="name" placeholder="姓名">
+                <input style="background: lightgray;border-radius: 5px;" type="submit" name="btn1" value="查找">
+            </form>
+        </div>
+    </div>
+
+    <div class="searchresult">
+        <h2 style="margin: 0px 0 5px 10px;font-size: 16px;">查找结果</h2>
+        <table border="0" cellspacing="0" cellpadding="0" style="border-radius: 5px;margin-left: 16px;">
+            <tbody>
+                <tr>
+                    <td class="number">学号</td>
+                    <td class="name">姓名</td>
+                    <td class="classroom">班级</td>
+                    <td class="ipaddress">ip地址</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table border="0" cellspacing="0" cellpadding="0" style="border-radius: 5px;margin-left: 16px;">
+            @{
+                if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tbody>
+                            <tr>
+                                <td class="number">@item.Id</td>
+                                <td class="name">@item.name</td>
+                                <td class="classroom"></td>
+                                <td class="ipaddress">@item.ip_address</td>
+                            </tr>
+                        </tbody>
+                    }
+                }
+            }
+        </table>
+    </div>
+}
+else
+{
+    <div class="addtest">
+        <h2 style="margin: 10px 0 0 10px;font-size: 18px;">当前没有考试正在进行。</h2>
+    </div>
+}
+

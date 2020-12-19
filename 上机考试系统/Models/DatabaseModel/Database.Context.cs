@@ -25,7 +25,7 @@ namespace 上机考试系统.Models.DatabaseModel
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<student> student { get; set; }
+        public virtual DbSet<Student> student { get; set; }
         public virtual DbSet<teacher> teacher { get; set; }
         public virtual DbSet<Exam> Exam { get; set; }
     }

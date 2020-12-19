@@ -39,12 +39,12 @@ namespace 上机考试系统.Controllers
         }
 
         [HttpPost]
-        public ActionResult LoginStudent(student Student)
+        public ActionResult LoginStudent(Student Student)
         {
             //DatabaseEntities db = new DatabaseEntities();
 
             //得到从数据库中查询到的表对象
-            student stu = db.student.Find(Student.Id);
+            Student stu = db.student.Find(Student.Id);
 
             //根据查到的表对象进行判断(若为空，说明Id输入错误)
             if (stu != null)
@@ -57,7 +57,7 @@ namespace 上机考试系统.Controllers
                     var g = from t in db.student
                             where t.ip_address == Student.ip_address&&t.ip_address!=null
                             select t;
-                    List<student> p = g.ToList();
+                    List<Student> p = g.ToList();
                     if (stu.ip_address != null)
                     {
 
@@ -80,7 +80,7 @@ namespace 上机考试系统.Controllers
                         }
                         else
                         {
-                            student ST = new student();
+                            Student ST = new Student();
                             ST.Id = stu.Id;
                             ST.name = stu.name;
                             ST.pwd = stu.pwd;

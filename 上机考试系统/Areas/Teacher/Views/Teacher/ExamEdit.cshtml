@@ -1,0 +1,232 @@
+﻿
+@{
+    ViewBag.Title = "ExamEdit";
+    Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>编辑考试</title>
+    <style type="text/css">
+        body {
+            min-width: 1424px;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .nav {
+            width: 100%;
+            width: -webkit-fill-available;
+            height: 60px;
+            background: black;
+        }
+
+        #li1title {
+            font-size: 20px;
+            margin-left: 100px;
+        }
+
+        .li1 {
+            text-decoration: none;
+            color: white;
+            margin: 5px 0 5px 0;
+        }
+
+            .li1:hover {
+                color: yellow;
+            }
+
+        .divli {
+            position: relative;
+            float: left;
+            margin: 25px 5px 20px 30px;
+            float: left;
+        }
+
+            .divli:hover {
+            }
+
+        #divli {
+            margin-top: 20px;
+            margin-left: 50px;
+        }
+
+        #divli1 {
+            margin-left: 400px;
+        }
+
+        .image1 {
+            width: 70px;
+            height: 70px;
+            margin-top: -10px;
+        }
+
+        .header {
+            display: inline-flex;
+            margin: 5px 0 0 150px;
+        }
+
+        .white_content {
+            display: none;
+            position: absolute;
+            top: 10%;
+            left: 72%;
+            width: 15%;
+            height: 40%;
+            padding: 30px;
+            border: 10px solid gray;
+            background-color: white;
+            z-index: 1002;
+            overflow: auto;
+            border-radius: 5px;
+        }
+
+
+        .input1 {
+            margin-bottom: 20px;
+        }
+
+        .addtest {
+            margin-left: 150px;
+            margin-top: 7px;
+            width: 1150px;
+            height: 120px;
+            background: lightgray;
+            border-radius: 5px;
+            padding-top: 10px;
+        }
+
+        .uploadexamfile {
+            margin-left: 150px;
+            margin-top: 12px;
+            width: 1150px;
+            height: 80px;
+            background: lightgray;
+            border-radius: 5px;
+            padding-top: 10px;
+        }
+
+        .importstudentnames {
+            margin-left: 150px;
+            margin-top: 12px;
+            width: 1150px;
+            height: 100px;
+            background: lightgray;
+            border-radius: 5px;
+            padding-top: 10px;
+        }
+
+        .begintest {
+            margin-left: 150px;
+            margin-top: 12px;
+            width: 1150px;
+            height: 100px;
+            background: lightgray;
+            border-radius: 5px;
+            padding-top: 10px;
+        }
+
+        .sss {
+            text-decoration: none;
+            display: none;
+            color: white;
+        }
+
+        .secondmenudiv {
+            border-radius: 5px;
+            padding-bottom: 3px;
+            padding-left: 5px;
+            padding-right: 3px;
+        }
+
+        .secondmenudiv {
+            opacity: 0.9 !important;
+        }
+    </style>
+
+
+    <script type="text/javascript">
+        function disp() {
+            for (var i = 0; i < 4; i++) {
+                document.getElementsByClassName('sss')[i].style.display = 'block';
+
+            }
+        }
+
+        function out() {
+            for (var i = 0; i < 4; i++) {
+                document.getElementsByClassName('sss')[i].style.display = 'none';
+            }
+        }
+
+
+        function jump() {
+            window.location.href = "begintest.jsp";
+        }
+    </script>
+</head>
+<br>
+<div class="addtest">
+    <h2 style="margin: 10px 0 5px 30px;font-size: 16px;">编辑考试信息</h2>
+    <div class="form1">
+        <form style="margin-left: 30px;" action="ExamEdit" method="post">
+            <input type="hidden" name="Id" value=@ViewBag.exam_Id>
+            考试名称：<input type="text" name="name" placeholder="科目">
+            考试时间：<input type="date" name="time" placeholder="考试时间"><br><br>
+            <input type="submit" name="addtestbtn" value="修改" style="background: lightgray;">
+
+        </form>
+    </div>
+</div>
+
+<div class="uploadexamfile">
+    <h2 style="margin: 10px 0 5px 30px;font-size: 16px;">上传试卷</h2>
+    <div class="form1">
+        <form style="margin-left: 30px;" action="addtestmysqlfile.jsp" method="post" enctype="multipart/form-data">
+
+            <input type="file" name="testuploadfile">
+
+
+            <input type="submit" name="addtestbtn" value="上传" style="background: lightgray;">
+        </form>
+    </div>
+</div>
+
+<div class="importstudentnames">
+    <h2 style="margin: 10px 0 5px 30px;font-size: 16px;">导入学生名单</h2>
+    <div class="form1">
+
+        <form style="margin-left: 30px;" action="addtestmysql.jsp" method="post" enctype="multipart/form-data">
+            目前设定参加此次考试的学生人数：
+            <br>
+            <input type="file" name="addtestbtn" style="background: lightgray;margin-top: 10px;">
+            <input type="submit" name="addtestbtn" value="继续导入" style="background: lightgray;">
+        </form>
+    </div>
+</div>
+@if (ViewBag.has_exambeing == 0)
+{
+    <div class="begintest">
+        <h2 style="margin: 10px 0 5px 30px;font-size: 16px;">开启考试</h2>
+        <p style="margin-left: 30px;margin-top: 4px;">
+
+            当前没有考试正在进行。<br>
+            <input type="button" name="button1" value="开启考试" onclick="jump()" style="background:snow;margin-top: 5px;">
+
+        </p>
+    </div>
+}
+else
+{
+    <div class="begintest">
+        <h2 style="margin: 10px 0 5px 30px;font-size: 16px;">开启考试</h2>
+        <p style="margin-left: 30px;margin-top: 4px;">
+            正在进行中，本系统不允许同时进行多场考试。<br>
+        </p>
+    </div>
+}
+</body>
+</html>
+

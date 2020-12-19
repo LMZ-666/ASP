@@ -27,7 +27,7 @@ namespace 上机考试系统.Controllers.DatabaseControllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            student student = db.student.Find(id);
+            Student student = db.student.Find(id);
             if (student == null)
             {
                 return HttpNotFound();
@@ -46,7 +46,7 @@ namespace 上机考试系统.Controllers.DatabaseControllers
         // 更多详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,name,ip_address")] student student)
+        public ActionResult Create([Bind(Include = "Id,name,ip_address")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace 上机考试系统.Controllers.DatabaseControllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            student student = db.student.Find(id);
+            Student student = db.student.Find(id);
             if (student == null)
             {
                 return HttpNotFound();
@@ -78,7 +78,7 @@ namespace 上机考试系统.Controllers.DatabaseControllers
         // 更多详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,name,ip_address")] student student)
+        public ActionResult Edit([Bind(Include = "Id,name,ip_address")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace 上机考试系统.Controllers.DatabaseControllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            student student = db.student.Find(id);
+            Student student = db.student.Find(id);
             if (student == null)
             {
                 return HttpNotFound();
@@ -109,7 +109,7 @@ namespace 上机考试系统.Controllers.DatabaseControllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            student student = db.student.Find(id);
+            Student student = db.student.Find(id);
             db.student.Remove(student);
             db.SaveChanges();
             return RedirectToAction("Index");
