@@ -4,69 +4,6 @@
     Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
 }
 
-<style type="text/css">
-    .addsinglestudent {
-        margin-left: 150px;
-        margin-right: 230px;
-        margin-top: 15px;
-        background: lightgray;
-        border-radius: 15px;
-        height: 90px;
-        position: relative;
-        padding: 10px 0 0 20px;
-    }
-
-    .searchstudentinformmation {
-        margin-left: 150px;
-        margin-right: 230px;
-        margin-top: 15px;
-        background: lightgray;
-        border-radius: 15px;
-        height: 90px;
-        position: relative;
-        padding: 10px 0 0 20px;
-    }
-
-    .searchresult {
-        margin-left: 147px;
-        margin-top: 6px;
-        width: 1150px;
-        height: 80px;
-        background: white;
-        border-radius: 5px;
-        padding-top: 10px;
-    }
-
-    .number {
-        width: 220px;
-    }
-
-    .name {
-        width: 160px;
-    }
-
-    .classroom {
-        width: 220px;
-    }
-
-    .ipaddress {
-        width: 220px;
-    }
-
-    .other {
-        width: 200px;
-    }
-
-    table,
-    td {
-        border: 1px solid lightgray;
-    }
-
-    td {
-        padding-left: 4px;
-    }
-</style>
-
 @if (ViewBag.has_exambeing != 0)
 {
     <div class="addsinglestudent">
@@ -77,6 +14,7 @@
             <form action="StudentInfo_add" method="post">
                 <input type="text" name="Id" placeholder="学号">
                 <input type="text" name="name" placeholder="姓名">
+                <input type="text" name="stuClass" placeholder="班级">
                 <input style="background: lightgray;border-radius: 5px;" type="submit" name="btn1" value="+添加">
             </form>
         </div>
@@ -85,12 +23,13 @@
 
     <div class="searchstudentinformmation">
         <div style="margin: 10px 0 5px 0px;">
-            <h6 style="margin:0;font-size: 18px;">查找本次考试已登陆学生信息</h6>
+            <h6 style="margin:0;font-size: 18px;">查找参加本次考试的学生信息</h6>
         </div>
         <div class="form">
             <form action="StudentInfo" method="post">
                 <input type="text" name="Id" placeholder="学号">
                 <input type="text" name="name" placeholder="姓名">
+                <input type="text" name="stuClass" placeholder="班级">
                 <input style="background: lightgray;border-radius: 5px;" type="submit" name="btn1" value="查找">
             </form>
         </div>
@@ -116,12 +55,12 @@
                     foreach (var item in Model)
                     {
                         <tbody>
-                            <tr>
-                                <td class="number">@item.Id</td>
-                                <td class="name">@item.name</td>
-                                <td class="classroom"></td>
-                                <td class="ipaddress">@item.ip_address</td>
-                            </tr>
+                                        <tr>
+                                            <td class="number">@item.Id</td>
+                                            <td class="name">@item.name</td>
+                                            <td class="classroom">@item.stuClass</td>
+                                            <td class="ipaddress">@item.ip_address</td>
+                                        </tr>
                         </tbody>
                     }
                 }

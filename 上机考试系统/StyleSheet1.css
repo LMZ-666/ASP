@@ -111,3 +111,73 @@ table, td {
 .secondmenudiv {
     opacity: 0.9 !important;
 }
+
+.searchresult {
+    margin-left: 147px;
+    margin-top: 6px;
+    width: 1150px;
+    height: 80px;
+    background: white;
+    border-radius: 5px;
+    padding-top: 10px;
+}
+.addsinglestudent {
+    margin-left: 150px;
+    margin-right: 230px;
+    margin-top: 15px;
+    background: lightgray;
+    border-radius: 15px;
+    height: 90px;
+    position: relative;
+    padding: 10px 0 0 20px;
+}
+
+.searchstudentinformmation {
+    margin-left: 150px;
+    margin-right: 230px;
+    margin-top: 15px;
+    background: lightgray;
+    border-radius: 15px;
+    height: 90px;
+    position: relative;
+    padding: 10px 0 0 20px;
+}
+
+.searchresult {
+    margin-left: 147px;
+    margin-top: 6px;
+    width: 1150px;
+    height: 80px;
+    background: white;
+    border-radius: 5px;
+    padding-top: 10px;
+}
+
+.number {
+    width: 220px;
+}
+
+.name {
+    width: 160px;
+}
+
+.classroom {
+    width: 220px;
+}
+
+.ipaddress {
+    width: 220px;
+}
+
+.other {
+    width: 200px;
+}
+
+table,
+td {
+    border: 1px solid lightgray;
+}
+
+td {
+    padding-left: 4px;
+}

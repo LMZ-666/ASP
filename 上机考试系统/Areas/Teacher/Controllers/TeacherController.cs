@@ -156,24 +156,59 @@ namespace 上机考试系统.Areas.Teacher.Controllers
                 }
             }
             
-            if (stu.Id != 0 && stu.name != null)
+            if (stu.Id != 0 && stu.name != null && stu.stuClass != 0)
             {
                 var g = from t in db.student
-                        where t.Id == stu.Id && t.exam_Id == exam.Id && t.name == stu.name
+                        where t.Id == stu.Id && t.exam_Id == exam.Id && t.name == stu.name && t.stuClass == stu.stuClass
                         select t;
                 return View(g.ToList());
             }
-            else if(stu.Id == 0 && stu.name != null)
+            else if(stu.Id == 0 && stu.name != null && stu.stuClass != 0)
             {
                 var g = from t in db.student
-                        where t.exam_Id == exam.Id && t.name == stu.name
+                        where t.exam_Id == exam.Id && t.name == stu.name && t.stuClass == stu.stuClass
+                        select t;
+                return View(g.ToList());
+            }
+            else if(stu.Id != 0 && stu.name == null && stu.stuClass != 0)
+            {
+                var g = from t in db.student
+                        where t.Id == stu.Id && t.exam_Id == exam.Id && t.stuClass == stu.stuClass
+                        select t;
+                return View(g.ToList());
+            }
+            else if (stu.Id != 0 && stu.name != null && stu.stuClass == 0)
+            {
+                var g = from t in db.student
+                        where t.Id == stu.Id && t.exam_Id == exam.Id
+                        select t;
+                return View(g.ToList());
+            }
+            else if (stu.Id == 0 && stu.name == null && stu.stuClass != 0)
+            {
+                var g = from t in db.student
+                        where t.exam_Id == exam.Id && t.stuClass == stu.stuClass
+                        select t;
+                return View(g.ToList());
+            }
+            else if (stu.Id != 0 && stu.name == null && stu.stuClass == 0)
+            {
+                var g = from t in db.student
+                        where t.Id == stu.Id && t.exam_Id == exam.Id
+                        select t;
+                return View(g.ToList());
+            }
+            else if (stu.Id == 0 && stu.name != null && stu.stuClass == 0)
+            {
+                var g = from t in db.student
+                        where t.name == stu.name && t.exam_Id == exam.Id
                         select t;
                 return View(g.ToList());
             }
             else
             {
                 var g = from t in db.student
-                        where t.Id == stu.Id && t.exam_Id == exam.Id
+                        where t.exam_Id == exam.Id
                         select t;
                 return View(g.ToList());
             }
@@ -198,7 +233,122 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             db.SaveChanges();
 
             return Content("<script >alert('添加学生成功');window.open('" + Url.Content("StudentInfo") + "', '_self')</script >", "text/html");
-
         }
+
+        public ActionResult RemoveBinding()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RemoveBinding(Student stu)
+        {
+            Exam exam = new Exam();
+            foreach (var item in db.Exam.ToList())
+            {
+                if (item.is_being == "是")
+                {
+                    exam = item;
+                    break;
+                }
+            }
+            if (stu.ip_address == null)
+            {
+                if (stu.Id != 0 && stu.name != null && stu.stuClass != 0)
+                {
+                    var g = from t in db.student
+                            where t.Id == stu.Id && t.exam_Id == exam.Id && t.name == stu.name && t.stuClass == stu.stuClass && t.ip_address != null
+                            select t;
+                    return View(g.ToList());
+                }
+                else if (stu.Id == 0 && stu.name != null && stu.stuClass != 0)
+                {
+                    var g = from t in db.student
+                            where t.exam_Id == exam.Id && t.name == stu.name && t.stuClass == stu.stuClass && t.ip_address != null
+                            select t;
+                    return View(g.ToList());
+                }
+                else if (stu.Id != 0 && stu.name == null && stu.stuClass != 0)
+                {
+                    var g = from t in db.student
+                            where t.Id == stu.Id && t.exam_Id == exam.Id && t.stuClass == stu.stuClass && t.ip_address != null
+                            select t;
+                    return View(g.ToList());
+                }
+                else if (stu.Id != 0 && stu.name != null && stu.stuClass == 0)
+                {
+                    var g = from t in db.student
+                            where t.Id == stu.Id && t.exam_Id == exam.Id && t.ip_address != null
+                            select t;
+                    return View(g.ToList());
+                }
+                else if (stu.Id == 0 && stu.name == null && stu.stuClass != 0)
+                {
+                    var g = from t in db.student
+                            where t.exam_Id == exam.Id && t.stuClass == stu.stuClass && t.ip_address != null
+                            select t;
+                    return View(g.ToList());
+                }
+                else if (stu.Id != 0 && stu.name == null && stu.stuClass == 0)
+                {
+                    var g = from t in db.student
+                            where t.Id == stu.Id && t.exam_Id == exam.Id && t.ip_address != null
+                            select t;
+                    return View(g.ToList());
+                }
+                else if (stu.Id == 0 && stu.name != null && stu.stuClass == 0)
+                {
+                    var g = from t in db.student
+                            where t.name == stu.name && t.exam_Id == exam.Id && t.ip_address != null
+                            select t;
+                    return View(g.ToList());
+                }
+                else
+                {
+                    var g = from t in db.student
+                            where t.exam_Id == exam.Id && t.ip_address != null
+                            select t;
+                    return View(g.ToList());
+                }
+            }
+            else
+            {
+                if (stu.ip_address != null)
+                {
+                    var g = from t in db.student
+                            where t.ip_address == stu.ip_address && t.exam_Id == exam.Id
+                            select t;
+                    return View(g.ToList());
+                }
+                else
+                {
+                    var g = from t in db.student
+                            where t.exam_Id == exam.Id && t.ip_address != null
+                            select t;
+                    return View(g.ToList());
+                }
+            }
+        }
+
+        [HttpPost]
+        public ActionResult RemoveBinding_IP(int Id)
+        {
+            Student student1 = db.student.Find(Id);
+            Student stu = new Student();
+            stu.Id = student1.Id;
+            stu.name = student1.name;
+            stu.stuClass = student1.stuClass;
+            stu.pwd = student1.pwd;
+            stu.exam_Id = student1.exam_Id;
+            stu.ip_address = null;
+            db.student.Remove(student1);
+            db.SaveChanges();
+            db.student.Add(stu);
+            db.SaveChanges();
+
+            return RedirectToAction("RemoveBinding");
+        }
+
+
     }
 }
