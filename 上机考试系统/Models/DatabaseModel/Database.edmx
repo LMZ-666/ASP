@@ -30,6 +30,7 @@
           <Property Name="ip_address" Type="varchar" MaxLength="15" />
           <Property Name="pwd" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="exam_Id" Type="int" />
+          <Property Name="stuClass" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="teacher">
           <Key>
@@ -57,6 +58,7 @@
           <Property Name="ip_address" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="pwd" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="exam_Id" Type="Int32" />
+          <Property Name="stuClass" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="student" EntityType="DatabaseModel.Student" />
@@ -96,6 +98,7 @@
           <EntitySetMapping Name="student">
             <EntityTypeMapping TypeName="DatabaseModel.Student">
               <MappingFragment StoreEntitySet="student">
+                <ScalarProperty Name="stuClass" ColumnName="stuClass" />
                 <ScalarProperty Name="exam_Id" ColumnName="exam_Id" />
                 <ScalarProperty Name="pwd" ColumnName="pwd" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
