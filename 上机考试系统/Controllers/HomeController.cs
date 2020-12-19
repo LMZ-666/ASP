@@ -63,7 +63,7 @@ namespace 上机考试系统.Controllers
 
                         if (stu.ip_address == Student.ip_address)
                         {
-                            return RedirectToAction("StudentIndex", "Student", new { area = "student", studentName = stu.name });
+                            return RedirectToAction("InitStudent", "Student", new { area = "student", studentId = stu.Id});
                         }
                         else
                         {
@@ -85,10 +85,11 @@ namespace 上机考试系统.Controllers
                             ST.name = stu.name;
                             ST.pwd = stu.pwd;
                             ST.ip_address = Student.ip_address;
+                            ST.exam_Id = stu.exam_Id;
                             db.student.Remove(stu);
                             db.student.Add(ST);
                             db.SaveChanges();
-                            return RedirectToAction("StudentIndex", "Student", new { area = "Student", studentName = stu.name });
+                            return RedirectToAction("InitStudent", "Student", new { area = "Student", studentName = stu.name ,TestId=stu.exam_Id});
 
                             
                         }

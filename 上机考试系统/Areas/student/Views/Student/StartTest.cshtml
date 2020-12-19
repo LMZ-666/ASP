@@ -1,17 +1,87 @@
-﻿@{
-    Layout = "~/Areas/student/Views/Shared/_StudentLayout";
+﻿@model 上机考试系统.Models.DatabaseModel.Exam
+@{
+    ViewBag.Title = "StartTest";
+    var action = Url.Action("SubmitAnswer", "Student");
 }
+<link href="~/StyleSheet1.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    .content {
+        display: inline-flex;
+    }
 
-<!DOCTYPE html>
+    .content1, .content2, .content3 {
+        margin-left: 5px;
+        margin-right: 10px;
+        margin-top: 20px;
+        width: 100px;
+        padding-top: 18px;
+        padding-right: 12px;
+        padding-left: 12px;
+    }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-    
+    .content1 {
+        margin-left: 150px;
+    }
+    .content4, .content6 {
+        margin-left: 20px;
+        margin-top: 20px;
+        width: 200px;
+        padding-top: 18px;
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+    .mentionline {
+        margin-left: 150px;
+        margin-top: 7px;
+        width: 1100px;
+        height: 10px;
+        background: lightgray;
+        border-radius: 5px;
+        padding-top: 10px;
+    }
+    .content5
+    {
+        margin:10px  
+    }
+    .content6{
+        width:100px;
+        display:inline-block;
+        
+    }
+    .content7 {
+        display: inline-flex;
+        margin-top:5px;
+    }
+</style>
+<div class="addtest">
+    <h2 style="margin: 10px 0 0 30px; font-size: 18px;">@ViewBag.Message</h2>
+</div>
+<div class="content">
+    <div class="content1"
+         style="border-radius: 5px; width: 430px; background: lightgray; height: 460px;">
+        <h6 style="margin: 0px;">试卷部分</h6>
+
+
     </div>
-</body>
-</html>
+    <form method="post" action=@action>
+        <div class="content4"
+             style="border-radius: 5px; width: 430px; background: lightgray; height: 460px;">
+            <div class="content7">
+                <h6 style="margin: 0px;">
+                    答卷部分&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                </h6>
+                <button type="submit" name="addtestbtn" style="background: lightgray;margin:0px;height:20px;width:120px">提交答卷</button>
+            </div>
+            <textarea name="PaperAnswer" style="width:410px;background:lightgray;height:420px"></textarea>
+        </div>
+    </form>
+    <div class="content6"
+         style="border-radius: 5px; width: 120px; background: lightgray; height: 460px">
+        <h6 style="margin: 0px;">考中通告</h6>
+        <textarea style="margin:0px;height:430px;width:120px" readonly="readonly" >@ViewBag.TeacherInform</textarea>
+        
+
+    </div>
+    
+
+</div>
