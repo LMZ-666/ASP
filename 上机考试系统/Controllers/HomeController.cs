@@ -63,7 +63,7 @@ namespace 上机考试系统.Controllers
 
                         if (stu.ip_address == Student.ip_address)
                         {
-                            return RedirectToAction("InitStudent", "Student", new { area = "student", studentName = stu.name ,TestId=stu.exam_Id});
+                            return RedirectToAction("InitStudent", "Student", new { area = "student", studentId = stu.Id});
                         }
                         else
                         {

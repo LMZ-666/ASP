@@ -156,8 +156,10 @@
             @Ajax.ActionLink("考试信息", "StartTest", "Student", new { area = "student" }, ajaxOptions, new { @class = "li1"  });
         </div>
         <div class="divli">
+            @*
             <a class="li1" id="secondmenu" onmouseover="disp()"
-               onmouseleave="out()" href="#">查看已交答案</a>
+               onmouseleave="out()" href="#">查看已交答案</a>*@
+            @Ajax.ActionLink("查看已交答案", "CheckedAnswer", "Student", new { area = "student" }, ajaxOptions, new { @class = "li1" });
         </div>
         <div class="divli">
             <a class="li1" href="">查看已绑定的IP地址</a>

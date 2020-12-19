@@ -1,6 +1,7 @@
 ﻿@model 上机考试系统.Models.DatabaseModel.Exam
 @{
     ViewBag.Title = "StartTest";
+    var action = Url.Action("SubmitAnswer", "Student");
 }
 <link href="~/StyleSheet1.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
@@ -51,7 +52,6 @@
         display: inline-flex;
         margin-top:5px;
     }
-
 </style>
 <div class="addtest">
     <h2 style="margin: 10px 0 0 30px; font-size: 18px;">@ViewBag.Message</h2>
@@ -63,15 +63,18 @@
 
 
     </div>
-    <div class="content4"
-         style="border-radius: 5px; width: 430px; background: lightgray; height: 460px;">
-        <div class="content7">
-            <h6 style="margin: 0px;">
-                答卷部分&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h6>
-                <button type="submit" name="addtestbtn"  style="background: lightgray;margin:0px;height:20px;width:120px">提交答卷</button>
-</div>
-        <textarea style="width:410px;background:lightgray;height:420px" name="Answer"></textarea>  
-    </div>
+    <form method="post" action=@action>
+        <div class="content4"
+             style="border-radius: 5px; width: 430px; background: lightgray; height: 460px;">
+            <div class="content7">
+                <h6 style="margin: 0px;">
+                    答卷部分&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                </h6>
+                <button type="submit" name="addtestbtn" style="background: lightgray;margin:0px;height:20px;width:120px">提交答卷</button>
+            </div>
+            <textarea name="PaperAnswer" style="width:410px;background:lightgray;height:420px"></textarea>
+        </div>
+    </form>
     <div class="content6"
          style="border-radius: 5px; width: 120px; background: lightgray; height: 460px">
         <h6 style="margin: 0px;">考中通告</h6>

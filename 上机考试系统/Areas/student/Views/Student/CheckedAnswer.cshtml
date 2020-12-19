@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "CheckedAnswer";
+}
+<link href="~/StyleSheet1.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+        .content233 {
+            margin-top: 20px;
+            margin-left: 150px;
+            padding-top: 18px;
+            padding-right: 12px;
+            padding-left: 12px;
+        }
+
+</style>
+<div class="addtest">
+    <h2 style="margin: 10px 0 0 30px; font-size: 18px;">@ViewBag.SubmitResult</h2>
+</div>
+<div class="content233">
+    <textarea readonly="readonly" style="width:1000px;background:lightgray;height:420px">@ViewBag.PaperAnswer</textarea>
+</div>
+
