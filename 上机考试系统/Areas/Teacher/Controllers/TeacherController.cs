@@ -89,6 +89,27 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             return RedirectToAction("BeforeTest");
         }
 
+        [HttpPost]
+        public ActionResult ExamEdit_being(Exam exam)
+        {
+            Exam exam1 = db.Exam.Find(exam.Id);
+            exam.Id = exam1.Id;
+            exam.name = exam1.name;
+            exam.time = exam1.time;
+            exam.creator = exam1.creator;
+            exam.creatorId = exam1.creatorId;
+            exam.has_cleaned = exam1.has_cleaned;
+            exam.has_saved = exam1.has_saved;
+            exam.has_stopped = exam1.has_stopped;
+            exam.is_being = "是";
+            exam.test_upload = exam1.test_upload;
+            db.Exam.Remove(exam1);
+            db.SaveChanges();
+            db.Exam.Add(exam);
+            db.SaveChanges();
+            return RedirectToAction("BeforeTest");
+        }
+
         public ActionResult TestCondition()
         {
             Exam exam = new Exam();

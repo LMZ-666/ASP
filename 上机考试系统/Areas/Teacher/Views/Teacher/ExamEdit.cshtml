@@ -211,10 +211,11 @@
     <div class="begintest">
         <h2 style="margin: 10px 0 5px 30px;font-size: 16px;">开启考试</h2>
         <p style="margin-left: 30px;margin-top: 4px;">
-
-            当前没有考试正在进行。<br>
-            <input type="button" name="button1" value="开启考试" onclick="jump()" style="background:snow;margin-top: 5px;">
-
+            当前没有考试正在进行。
+                       <form style="margin-left: 30px;" action="ExamEdit_being" method="post">
+                           <input type="hidden" name="id" value=@ViewBag.exam_Id>
+                           <input type="submit" name="button1" value="开启本考试" >
+                       </form>
         </p>
     </div>
 }
