@@ -1,0 +1,74 @@
+﻿@model IEnumerable<上机考试系统.Models.DatabaseModel.ExamNotice>
+@{
+    ViewBag.Title = "ExamInform";
+    Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<style type="text/css">
+    .uploadexamfile {
+        margin-left: 150px;
+        margin-top: 12px;
+        width: 1150px;
+        height: 80px;
+        background: lightgray;
+        border-radius: 5px;
+        padding-top: 10px;
+    }
+
+    .informationcontent {
+        margin-left: 150px;
+        margin-top: 12px;
+        width: 1150px;
+        height: 80px;
+        background: white;
+        border-radius: 5px;
+        padding-top: 10px;
+    }
+</style>
+
+@if (ViewBag.has_exambeing != 0)
+{
+    <div class="uploadexamfile">
+        <h2 style="margin: 10px 0 5px 30px;font-size: 16px;">新增通知消息</h2>
+        <div class="form1">
+            <form style="margin-left: 30px;" action="ExamInform" method="post">
+                <input type="text" name="info" placeholder="通知消息内容" style="width:300px;">
+                <input type="submit" name="addinformbtn" value="发布通知" style="background: lightgray;width:90px;">
+            </form>
+        </div>
+    </div>
+
+    <div class="informationcontent">
+        <h2 style="margin: 0px 0 5px 10px;font-size: 16px;">已有通知消息</h2>
+        <table border="0" cellspacing="0" cellpadding="0" style="border-radius: 5px;margin-left: 25px;">
+            <tbody>
+                <tr>
+                    <td width="200px">通知时间</td>
+                    <td width="1000px">通知内容</td>
+                    <td width="200px">通知教师</td>
+                </tr>
+            </tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tbody>
+                            <tr>
+                                <td width="200px">@item.time</td>
+                                <td width="1000px">@item.info</td>
+                                <td width="200px">@item.sender</td>
+                            </tr>
+                        </tbody>
+                    }
+                }
+            }
+        </table>
+    </div>
+}
+else
+{
+    <div class="addtest">
+        <h2 style="margin: 10px 0 0 10px;font-size: 18px;">当前没有考试正在进行。</h2>
+    </div>
+}

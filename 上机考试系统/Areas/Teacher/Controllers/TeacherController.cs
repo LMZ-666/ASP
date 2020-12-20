@@ -31,6 +31,8 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             return View();
         }
 
+//------------------------------------------------------考前管理----------------------------------------------------------------
+
         public ActionResult BeforeTest()
         {
             return View(db.Exam.ToList());
@@ -109,6 +111,8 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             db.SaveChanges();
             return RedirectToAction("BeforeTest");
         }
+
+//------------------------------------------------------考中管理----------------------------------------------------------------
 
         public ActionResult TestCondition()
         {
@@ -258,6 +262,20 @@ namespace 上机考试系统.Areas.Teacher.Controllers
 
         public ActionResult RemoveBinding()
         {
+            Exam exam = new Exam();
+            foreach (var item in db.Exam.ToList())
+            {
+                if (item.is_being == "是")
+                {
+                    exam = item;
+                    break;
+                }
+            }
+
+            if (exam.is_being != "是")
+                ViewBag.has_exambeing = 0;
+            else
+                ViewBag.has_exambeing = 1;
             return View();
         }
 
@@ -370,6 +388,57 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             return RedirectToAction("RemoveBinding");
         }
 
+        public ActionResult ExamInform()
+        {
+            Exam exam = new Exam();
+            foreach (var item in db.Exam.ToList())
+            {
+                if (item.is_being == "是")
+                {
+                    exam = item;
+                    break;
+                }
+            }
 
+            if (exam.is_being != "是")
+                ViewBag.has_exambeing = 0;
+            else
+                ViewBag.has_exambeing = 1;
+
+            var g = from t in db.ExamNotice
+                    where t.exam_Id == exam.Id
+                    select t;
+
+            return View(g.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult ExamInform(ExamNotice examNotice)
+        {
+            Exam exam = new Exam();
+            foreach (var item in db.Exam.ToList())
+            {
+                if (item.is_being == "是")
+                {
+                    exam = item;
+                    break;
+                }
+            }
+
+            string tempTimeStr =DateTime.Now.Month.ToString().PadLeft(2, '0')+ "/" + DateTime.Now.Day.ToString().PadLeft(2, '0') + " " + DateTime.Now.Hour.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Minute.ToString().PadLeft(2, '0') + ":" + DateTime.Now.Second.ToString().PadLeft(2, '0');
+
+            examNotice.Id = db.ExamNotice.ToList().Count + 1;
+            examNotice.sender = TEACHER;
+            examNotice.time = tempTimeStr;
+            examNotice.exam_Id = exam.Id;
+            db.ExamNotice.Add(examNotice);
+            db.SaveChanges();
+
+            var g = from t in db.ExamNotice
+                    where t.exam_Id == exam.Id
+                    select t;
+
+            return View(g.ToList());
+        }
     }
 }

@@ -169,6 +169,9 @@
     <Compile Include="Models\DatabaseModel\Exam.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DatabaseModel\ExamNotice.cs">
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DatabaseModel\Student.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
@@ -224,6 +227,7 @@
     <Content Include="Areas\Teacher\Views\Teacher\TestCondition.cshtml" />
     <Content Include="Areas\Teacher\Views\Teacher\StudentInfo.cshtml" />
     <Content Include="Areas\Teacher\Views\Teacher\RemoveBinding.cshtml" />
+    <Content Include="Areas\Teacher\Views\Teacher\ExamInform.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

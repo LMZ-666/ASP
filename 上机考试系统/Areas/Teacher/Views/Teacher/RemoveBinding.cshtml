@@ -4,66 +4,75 @@
     Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
 }
 
-<div class="addtest">
-    <h2 style="margin: 10px 0 0 30px;font-size: 18px;">查找已登录的学生信息</h2>
-    <div class="form1">
-        <form style="margin-left: 30px;" action="RemoveBinding" method="post">
-            <input type="text" name="Id" placeholder="学号">
-            <input type="text" name="name" placeholder="姓名">
-            <input type="text" name="stuClass" placeholder="班级">
-            <input type="submit" name="addtestbtn" value="查找" style="background: lightgray;">
-        </form>
+@if (ViewBag.has_exambeing != 0)
+{
+    <div class="addtest">
+        <h2 style="margin: 10px 0 0 30px;font-size: 18px;">查找已登录的学生信息</h2>
+        <div class="form1">
+            <form style="margin-left: 30px;" action="RemoveBinding" method="post">
+                <input type="text" name="Id" placeholder="学号">
+                <input type="text" name="name" placeholder="姓名">
+                <input type="text" name="stuClass" placeholder="班级">
+                <input type="submit" name="addtestbtn" value="查找" style="background: lightgray;">
+            </form>
+        </div>
     </div>
-</div>
 
-<div class="addtest">
-    <h2 style="margin: 10px 0 0 30px;font-size: 18px;">按IP地址查找学生信息</h2>
-    <div class="form1">
-        <form style="margin-left: 30px;" action="RemoveBinding" method="post">
-            <input type="text" name="ip_address" placeholder="ip地址">
+    <div class="addtest">
+        <h2 style="margin: 10px 0 0 30px;font-size: 18px;">按IP地址查找学生信息</h2>
+        <div class="form1">
+            <form style="margin-left: 30px;" action="RemoveBinding" method="post">
+                <input type="text" name="ip_address" placeholder="ip地址">
 
-            <input type="submit" name="asearch" value="查找" style="background: lightgray;">
-        </form>
+                <input type="submit" name="asearch" value="查找" style="background: lightgray;">
+            </form>
+        </div>
     </div>
-</div>
 
-<div class="searchresult">
-    <h2 style="margin: 0px 0 5px 10px;font-size: 16px;">查找结果</h2>
-    <table border="0" cellspacing="0" cellpadding="0" style="border-radius: 5px;margin-left: 16px;">
-        <tbody>
-            <tr>
-                <td class="number">学号</td>
-                <td class="name">姓名</td>
-                <td class="classroom">班级</td>
-                <td class="ipaddress">ip地址</td>
-                <td class="other"></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="searchresult">
+        <h2 style="margin: 0px 0 5px 10px;font-size: 16px;">查找结果</h2>
+        <table border="0" cellspacing="0" cellpadding="0" style="border-radius: 5px;margin-left: 16px;">
+            <tbody>
+                <tr>
+                    <td class="number">学号</td>
+                    <td class="name">姓名</td>
+                    <td class="classroom">班级</td>
+                    <td class="ipaddress">ip地址</td>
+                    <td class="other"></td>
+                </tr>
+            </tbody>
+        </table>
 
-    <table border="0" cellspacing="0" cellpadding="0" style="border-radius: 5px;margin-left: 16px;">
-        @{
-            if (Model != null)
-            {
-                foreach (var item in Model)
+        <table border="0" cellspacing="0" cellpadding="0" style="border-radius: 5px;margin-left: 16px;">
+            @{
+                if (Model != null)
                 {
-                    <tbody>
-                                <tr>
-                                    <td class="number">@item.Id</td>
-                                    <td class="name">@item.name</td>
-                                    <td class="classroom">@item.stuClass</td>
-                                    <td class="ipaddress">@item.ip_address</td>
-                                    <td class="other">
-                                        <form style="margin-left: 30px;" action="RemoveBinding_IP" method="post">
-                                            <input type="hidden" name="Id" value=@item.Id>
-                                            <input type="submit" name="addtestbtn" value="解除绑定" style="background: lightgray;">
-                                        </form>
-                                    </td>
-                                </tr>
-                    </tbody>
+                    foreach (var item in Model)
+                    {
+                        <tbody>
+                            <tr>
+                                <td class="number">@item.Id</td>
+                                <td class="name">@item.name</td>
+                                <td class="classroom">@item.stuClass</td>
+                                <td class="ipaddress">@item.ip_address</td>
+                                <td class="other">
+                                    <form style="margin-left: 30px;" action="RemoveBinding_IP" method="post">
+                                        <input type="hidden" name="Id" value=@item.Id>
+                                        <input type="submit" name="addtestbtn" value="解除绑定" style="background: lightgray;">
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
                 }
             }
-        }
-    </table>
-</div>
+        </table>
+    </div>
+}
+else
+{
+    <div class="addtest">
+        <h2 style="margin: 10px 0 0 10px;font-size: 18px;">当前没有考试正在进行。</h2>
+    </div>
+}
 
