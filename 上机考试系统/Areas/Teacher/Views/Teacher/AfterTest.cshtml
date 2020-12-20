@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<上机考试系统.Models.DatabaseModel.Exam>
 @{
-    ViewBag.Title = "BeforeTest";
+    ViewBag.Title = "AfterTest";
     Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+
     var ajaxOptions = new AjaxOptions
     {
         LoadingElementId = "loading",
@@ -12,31 +13,19 @@
 
 <link href="~/StyleSheet1.css" rel="stylesheet" type="text/css" />
 
-
-<div class="addtest">
-    <h2 style="margin: 10px 0 0 30px; font-size: 18px;">添加考试</h2>
-    <div class="form1">
-        <form style="margin-left: 30px;" action="BeforeTest" method="post">
-            <input type="text" name="name" placeholder="考试名称*"> 
-            <input type="date" name="time" placeholder="考试时间*">
-            <input type="submit" name="addtestbtn" value="添加" style="background: lightgray;">
-        </form>
-    </div>
-</div>
-
 <div class="tableform">
     <table border="0" cellspacing="0" cellpadding="0">
         <tbody>
             <tr>
                 <td style="width: 200px;">考试名称</td>
-                <td style="width: 200px;">考试时间</td>
+                <td style="width: 170px;">考试时间</td>
                 <td style="width: 120px;">创建人</td>
                 <td style="width: 133px;">上传试卷</td>
                 <td style="width: 80px; height: 30px;">进行中</td>
                 <td style="width: 80px;">已结束</td>
                 <td style="width: 80px;">已归档</td>
                 <td style="width: 80px;">已清理</td>
-                <td style="width: 120px;"></td>
+                <td style="width: 130px;"></td>
             </tr>
         </tbody>
     </table>
@@ -46,7 +35,7 @@
         {
         <tr>
             <td style="width: 200px;">@item.name</td>
-            <td style="width: 200px;">@item.time</td>
+            <td style="width: 170px;">@item.time</td>
             <td style="width: 120px;">@item.creator</td>
             <td style="width: 133px;"> @item.test_upload</td>
             <td style="width: 80px; height: 30px;">@item.is_being</td>
@@ -55,19 +44,24 @@
             <td style="width: 80px;">@item.has_cleaned</td>
             @if (item.is_being == "否" && item.has_stopped == "否")
             {
-                <td style="width: 120px;">
-                    @Ajax.ActionLink("编辑考试", "ExamEdit", "Teacher", new { area = "Teacher", exam_Id = item.Id }, ajaxOptions)
+                <td style="width: 130px">该考试还未开始</td>
+            }
+            else if (item.is_being == "是")
+            {
+                <td style="width: 130px">
+                    @Ajax.ActionLink("结束考试", "AfterTest_End", "Teacher", new { area = "Teacher", exam_Id = item.Id }, ajaxOptions)
                 </td>
             }
             else if (item.has_stopped == "是")
             {
-                <td style="width: 120px;">该考试已结束</td>
-            }
-            else
-            {
-                <td style="width: 120px;">该考试进行中</td>
+                <td style = "width: 130px" >
+                    @Ajax.ActionLink("下载学生答案", "AfterTest_Download", "Teacher", new { area = "Teacher", exam_Id = item.Id }, ajaxOptions)
+                    <br />
+                    @Ajax.ActionLink("删除考试", "AfterTest_Delete", "Teacher", new { area = "Teacher", exam_Id = item.Id }, ajaxOptions)
+                </td >
             }
         </tr>
         }
     </table>
 </div>
+

@@ -41,7 +41,16 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         [HttpPost]
         public ActionResult BeforeTest(Exam exam)
         {
-            exam.Id = db.Exam.ToList().Count+1;
+            Exam exam1 = new Exam();
+            exam1.Id = 0;
+            foreach (var item in db.Exam.ToList())
+            {
+                if(exam.Id<item.Id)
+                {
+                    exam1.Id = item.Id;
+                }
+            }
+            exam.Id = exam1.Id + 1;
             exam.creator = TEACHER;
             exam.creatorId = TEACHERID;
             exam.has_cleaned = "否";
@@ -49,6 +58,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             exam.has_stopped = "否";
             exam.is_being = "否";
             exam.test_upload = "试卷未上传";
+            exam.commmit_number = 0;
             db.Exam.Add(exam);
             db.SaveChanges();
 
@@ -69,11 +79,16 @@ namespace 上机考试系统.Areas.Teacher.Controllers
                 }
             }
             ViewBag.has_exambeing = has_exambeing;
+            var g = from t in db.student
+                    where t.exam_Id == exam_Id
+                    select t;
+            var p = g.ToList();
+            ViewBag.stuNum = p.Count();
             return View();
         }
 
         [HttpPost]
-        public ActionResult ExamEdit(Exam exam)
+        public ActionResult ExamEdit_Mod(Exam exam)
         {
             Exam exam1 = db.Exam.Find(exam.Id);
             exam.Id = exam1.Id;
@@ -84,11 +99,32 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             exam.has_stopped = exam1.has_stopped;
             exam.is_being = exam1.is_being;
             exam.test_upload = exam1.test_upload;
+            exam.commmit_number = exam1.commmit_number;
             db.Exam.Remove(exam1);
             db.SaveChanges();
             db.Exam.Add(exam);
             db.SaveChanges();
             return RedirectToAction("BeforeTest");
+        }
+
+        [HttpPost]
+        public ActionResult ExamEdit_add(Student stu)
+        {
+            Exam exam = new Exam();
+            foreach (var item in db.Exam.ToList())
+            {
+                if (item.is_being == "是")
+                {
+                    exam = item;
+                    break;
+                }
+            }
+
+            stu.pwd = "123456";
+            db.student.Add(stu);
+            db.SaveChanges();
+
+            return RedirectToAction("ExamEdit", new { exam_Id=stu.exam_Id });
         }
 
         [HttpPost]
@@ -105,6 +141,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             exam.has_stopped = exam1.has_stopped;
             exam.is_being = "是";
             exam.test_upload = exam1.test_upload;
+            exam.commmit_number = exam1.commmit_number;
             db.Exam.Remove(exam1);
             db.SaveChanges();
             db.Exam.Add(exam);
@@ -139,7 +176,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             ViewBag.student_all = p.Count;
 
             g = from t in db.student
-                    where t.ip_address != null
+                    where t.ip_address != null && t.exam_Id == exam.Id
                     select t;
             p = g.ToList();
             ViewBag.student_login = p.Count;
@@ -439,6 +476,53 @@ namespace 上机考试系统.Areas.Teacher.Controllers
                     select t;
 
             return View(g.ToList());
+        }
+
+//------------------------------------------------------考后管理----------------------------------------------------------------
+        public ActionResult AfterTest()
+        {
+            return View(db.Exam.ToList());
+        }
+
+        public ActionResult AfterTest_End(int exam_Id)
+        {
+            Exam exam1 = db.Exam.Find(exam_Id);
+            Exam exam = new Exam();
+            exam.Id = exam1.Id;
+            exam.name = exam1.name;
+            exam.time = exam1.time;
+            exam.creator = exam1.creator;
+            exam.creatorId = exam1.creatorId;
+            exam.has_cleaned = exam1.has_cleaned;
+            exam.has_saved = exam1.has_saved;
+            exam.has_stopped = "是";
+            exam.is_being = "否";
+            exam.test_upload = exam1.test_upload;
+            exam.commmit_number = exam1.commmit_number;
+            db.Exam.Remove(exam1);
+            db.SaveChanges();
+            db.Exam.Add(exam);
+            db.SaveChanges();
+            var g = db.ExamNotice.ToList();
+            foreach(var item in g)
+            {
+                db.ExamNotice.Remove(item);
+            }
+            db.SaveChanges();
+            return RedirectToAction("AfterTest");
+        }
+
+        public ActionResult AfterTest_Download(int exam_Id)
+        {
+            return RedirectToAction("AfterTest");
+        }
+
+        public ActionResult AfterTest_Delete(int exam_Id)
+        {
+            Exam exam1 = db.Exam.Find(exam_Id);
+            db.Exam.Remove(exam1);
+            db.SaveChanges();
+            return RedirectToAction("AfterTest");
         }
     }
 }

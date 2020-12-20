@@ -171,7 +171,7 @@
 <div class="addtest">
     <h2 style="margin: 10px 0 5px 30px;font-size: 16px;">编辑考试信息</h2>
     <div class="form1">
-        <form style="margin-left: 30px;" action="ExamEdit" method="post">
+        <form style="margin-left: 30px;" action="ExamEdit_Mod" method="post">
             <input type="hidden" name="Id" value=@ViewBag.exam_Id>
             考试名称：<input type="text" name="name" placeholder="科目">
             考试时间：<input type="date" name="time" placeholder="考试时间"><br><br>
@@ -184,7 +184,7 @@
 <div class="uploadexamfile">
     <h2 style="margin: 10px 0 5px 30px;font-size: 16px;">上传试卷</h2>
     <div class="form1">
-        <form style="margin-left: 30px;" action="addtestmysqlfile.jsp" method="post" enctype="multipart/form-data">
+        <form style="margin-left: 30px;" action="" method="post" enctype="multipart/form-data">
 
             <input type="file" name="testuploadfile">
 
@@ -198,11 +198,14 @@
     <h2 style="margin: 10px 0 5px 30px;font-size: 16px;">导入学生名单</h2>
     <div class="form1">
 
-        <form style="margin-left: 30px;" action="addtestmysql.jsp" method="post" enctype="multipart/form-data">
-            目前设定参加此次考试的学生人数：
+        <form style="margin-left: 30px;" action="ExamEdit_add" method="post" enctype="multipart/form-data">
+            目前设定参加此次考试的学生人数：@ViewBag.stuNum
             <br>
-            <input type="file" name="addtestbtn" style="background: lightgray;margin-top: 10px;">
-            <input type="submit" name="addtestbtn" value="继续导入" style="background: lightgray;">
+            <input type="text" name="Id" placeholder="学号">
+            <input type="text" name="name" placeholder="姓名">
+            <input type="text" name="stuClass" placeholder="班级">
+            <input type="hidden" name="exam_Id" value=@ViewBag.exam_Id>
+            <input style="background: lightgray;border-radius: 5px;" type="submit" name="btn1" value="+添加">
         </form>
     </div>
 </div>
