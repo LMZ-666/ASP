@@ -45,7 +45,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             exam1.Id = 0;
             foreach (var item in db.Exam.ToList())
             {
-                if(exam.Id<item.Id)
+                if(exam1.Id<item.Id)
                 {
                     exam1.Id = item.Id;
                 }
