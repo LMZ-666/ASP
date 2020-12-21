@@ -13,11 +13,11 @@ namespace 上机考试系统.Areas.Teacher.Controllers
 {
     public class TeacherController : Controller
     {
-        public static String TEACHER;
-        public static int TEACHERID;
+        public static String TEACHER;   //用于存储登陆的教师名字
+        public static int TEACHERID;    //用于存储登陆的教师ID
         private DatabaseEntities db = new DatabaseEntities();
         // GET: Teacher/Teacher
-        public ActionResult Initial(String teacherName, int teacherId)
+        public ActionResult Initial(String teacherName, int teacherId)  //登陆初始化
         {
             TEACHER = teacherName;
             TEACHERID = teacherId;
@@ -25,7 +25,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             return RedirectToAction("TeacherIndex"); 
         }
 
-        public ActionResult TeacherIndex()
+        public ActionResult TeacherIndex()  //教师首页
         {
             ViewBag.teacherName = TEACHER;
             return View();
@@ -33,13 +33,13 @@ namespace 上机考试系统.Areas.Teacher.Controllers
 
 //------------------------------------------------------考前管理----------------------------------------------------------------
 
-        public ActionResult BeforeTest()
+        public ActionResult BeforeTest() //考前页面
         {
             return View(db.Exam.ToList());
         }
 
         [HttpPost]
-        public ActionResult BeforeTest(Exam exam)
+        public ActionResult BeforeTest(Exam exam)   //考前页面添加考试函数
         {
             Exam exam1 = new Exam();
             exam1.Id = 0;
@@ -65,7 +65,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             return View(db.Exam.ToList());
         }
 
-        public ActionResult ExamEdit(int exam_Id)
+        public ActionResult ExamEdit(int exam_Id)   //编辑考试页面
         {
             ViewBag.exam_Id = exam_Id;
             Exam exam = db.Exam.Find(exam_Id);
@@ -88,7 +88,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public ActionResult ExamEdit_Mod(Exam exam)
+        public ActionResult ExamEdit_Mod(Exam exam) //编辑考试页面修改考试信息函数
         {
             Exam exam1 = db.Exam.Find(exam.Id);
             exam.Id = exam1.Id;
@@ -108,7 +108,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public ActionResult ExamEdit_add(Student stu)
+        public ActionResult ExamEdit_add(Student stu)   //编辑考试页面添加学生函数
         {
             Exam exam = new Exam();
             foreach (var item in db.Exam.ToList())
@@ -128,7 +128,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public ActionResult ExamEdit_being(Exam exam)
+        public ActionResult ExamEdit_being(Exam exam)   //编辑页面开启考试函数
         {
             Exam exam1 = db.Exam.Find(exam.Id);
             exam.Id = exam1.Id;
@@ -151,7 +151,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
 
 //------------------------------------------------------考中管理----------------------------------------------------------------
 
-        public ActionResult TestCondition()
+        public ActionResult TestCondition() //考试概况页面
         {
             Exam exam = new Exam();
             foreach (var item in db.Exam.ToList())
@@ -186,7 +186,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             return View(); 
         }
 
-        public ActionResult StudentInfo()
+        public ActionResult StudentInfo()   //学生信息页面
         {
             Exam exam = new Exam();
             foreach (var item in db.Exam.ToList())
@@ -206,7 +206,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public ActionResult StudentInfo(Student stu)
+        public ActionResult StudentInfo(Student stu)    //学生信息页面搜索学生函数
         {
             Exam exam = new Exam();
             foreach (var item in db.Exam.ToList())
@@ -277,7 +277,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public ActionResult StudentInfo_add(Student stu)
+        public ActionResult StudentInfo_add(Student stu)    //学生信息页面添加学生函数
         {
             Exam exam = new Exam();
             foreach (var item in db.Exam.ToList())
@@ -297,7 +297,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             return Content("<script >alert('添加学生成功');window.open('" + Url.Content("StudentInfo") + "', '_self')</script >", "text/html");
         }
 
-        public ActionResult RemoveBinding()
+        public ActionResult RemoveBinding() //解除绑定页面
         {
             Exam exam = new Exam();
             foreach (var item in db.Exam.ToList())
@@ -317,7 +317,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public ActionResult RemoveBinding(Student stu)
+        public ActionResult RemoveBinding(Student stu)  //解除绑定页面搜索学生函数
         {
             Exam exam = new Exam();
             foreach (var item in db.Exam.ToList())
@@ -407,7 +407,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public ActionResult RemoveBinding_IP(int Id)
+        public ActionResult RemoveBinding_IP(int Id)    //解除绑定页面解除IP地址绑定函数
         {
             Student student1 = db.student.Find(Id);
             Student stu = new Student();
@@ -425,7 +425,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             return RedirectToAction("RemoveBinding");
         }
 
-        public ActionResult ExamInform()
+        public ActionResult ExamInform()    //考中通知页面
         {
             Exam exam = new Exam();
             foreach (var item in db.Exam.ToList())
@@ -450,7 +450,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public ActionResult ExamInform(ExamNotice examNotice)
+        public ActionResult ExamInform(ExamNotice examNotice)   //考中通知页面发布通知函数
         {
             Exam exam = new Exam();
             foreach (var item in db.Exam.ToList())
@@ -479,12 +479,12 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         }
 
 //------------------------------------------------------考后管理----------------------------------------------------------------
-        public ActionResult AfterTest()
+        public ActionResult AfterTest() //考后管理页面
         {
             return View(db.Exam.ToList());
         }
 
-        public ActionResult AfterTest_End(int exam_Id)
+        public ActionResult AfterTest_End(int exam_Id)  //考后管理页面结束考试函数
         {
             Exam exam1 = db.Exam.Find(exam_Id);
             Exam exam = new Exam();
@@ -512,12 +512,13 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             return RedirectToAction("AfterTest");
         }
 
-        public ActionResult AfterTest_Download(int exam_Id)
+        public ActionResult AfterTest_Download(int exam_Id) //考后管理页面下载答案函数
         {
+            //下载完记得改一下exam表的has_save参数
             return RedirectToAction("AfterTest");
         }
 
-        public ActionResult AfterTest_Delete(int exam_Id)
+        public ActionResult AfterTest_Delete(int exam_Id)   //考后管理页面删除考试函数
         {
             Exam exam1 = db.Exam.Find(exam_Id);
             db.Exam.Remove(exam1);
