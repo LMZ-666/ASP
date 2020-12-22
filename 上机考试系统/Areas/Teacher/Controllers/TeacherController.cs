@@ -529,7 +529,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             FileStream fs1 = new FileStream(APath, FileMode.Open, FileAccess.Read);
 
             var fileName = APath.Replace(Server.MapPath(string.Format("~/Areas/{0}", "PaperAnswer")), "");
-            FileStream fs2 = new FileStream(string.Format(@"C:\Users\User\Desktop\data\{0}", fileName), FileMode.Create, FileAccess.Write);
+            FileStream fs2 = new FileStream(string.Format(@"C:\Users\LMZ\Desktop\Answer\{0}", fileName), FileMode.Create, FileAccess.Write);
             int num ;
             byte[] buffer = new byte[1024];
             do
