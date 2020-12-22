@@ -21,7 +21,7 @@ namespace 上机考试系统.Areas.student.Controllers
         static String SavePath;
         // GET: student/Student
 
-        public ActionResult InitStudent(int StudentId=0)
+        public ActionResult InitStudent(int StudentId)
         {
             Student ST = db.student.Find(StudentId);
             MyId = StudentId;
@@ -39,6 +39,7 @@ namespace 上机考试系统.Areas.student.Controllers
             var fileName = string.Format("{2}_{3}_{0}_{1}.txt", MyId.ToString(), MyStudentName, TestName, TestTime);
             SavePath = Path.Combine(filePath, fileName);
             Exam EX = db.Exam.Find(MyTestId);
+            EX.commmit_number += 1;
             EX.AnswerPath = SavePath;
             db.SaveChanges();
             FileStream fs = new FileStream(SavePath, FileMode.Create, FileAccess.ReadWrite);
@@ -63,12 +64,12 @@ namespace 上机考试系统.Areas.student.Controllers
             {
                 TestName = EX.name;
                 TestTime = EX.time;
-                /*
+                
                 String paperpath = EX.PaperPath;
                 FileStream fs = new FileStream(paperpath, FileMode.Open, FileAccess.Read);
                 StreamReader sr = new StreamReader(fs);
                 ViewBag.Paper = sr.ReadToEnd();
-                */
+                
                 str = String.Format("本场考试的科目名称为：{0}，考试时间为：{1}，监考教师是：{2}", EX.name, EX.time, EX.creator);
             }
             else

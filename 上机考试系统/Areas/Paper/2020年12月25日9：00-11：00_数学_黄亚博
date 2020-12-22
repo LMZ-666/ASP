@@ -1,1 +1,0 @@
-<add name="MyDb2" connectionString="data source=(LocalDb)\MSSQLLocalDB;initial catalog=Mvc5FuLuA.Areas.LX07.Models.MyDb2Model.MyDb2;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework" providerName="System.Data.SqlClient" />

@@ -103,6 +103,8 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             exam.is_being = exam1.is_being;
             exam.test_upload = exam1.test_upload;
             exam.commmit_number = exam1.commmit_number;
+            exam.AnswerPath = exam1.AnswerPath;
+            exam.PaperPath = exam1.PaperPath;
             db.Exam.Remove(exam1);
             db.SaveChanges();
             db.Exam.Add(exam);
@@ -145,6 +147,8 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             exam.is_being = "是";
             exam.test_upload = exam1.test_upload;
             exam.commmit_number = exam1.commmit_number;
+            exam.PaperPath = exam1.PaperPath;
+            exam.AnswerPath = exam1.AnswerPath;
             db.Exam.Remove(exam1);
             db.SaveChanges();
             db.Exam.Add(exam);
@@ -502,6 +506,8 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             exam.is_being = "否";
             exam.test_upload = exam1.test_upload;
             exam.commmit_number = exam1.commmit_number;
+            exam.AnswerPath = exam1.AnswerPath;
+            exam.PaperPath = exam1.PaperPath;
             db.Exam.Remove(exam1);
             db.SaveChanges();
             db.Exam.Add(exam);
@@ -517,6 +523,20 @@ namespace 上机考试系统.Areas.Teacher.Controllers
 
         public ActionResult AfterTest_Download(int exam_Id)
         {
+            Exam EX = db.Exam.Find(ExamId);
+            String APath = EX.AnswerPath;
+            FileStream fs1 = new FileStream(APath, FileMode.Open, FileAccess.Read);
+            var fileName = string.Format("{0}_{1}_{2}", EX.time, EX.name, EX.creator);
+            FileStream fs2 = new FileStream(Server.MapPath(string.Format("~/{0}",fileName)), FileMode.Create, FileAccess.Write);
+            int num ;
+            byte[] buffer = new byte[1024];
+            do
+            {
+                num = fs1.Read(buffer, 0, buffer.Length);
+                fs2.Write(buffer, 0, num);
+            } while (num > 0);
+            fs1.Close();
+            fs2.Close();
             return RedirectToAction("AfterTest");
         }
 
