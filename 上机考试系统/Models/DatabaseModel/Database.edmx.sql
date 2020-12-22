@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/16/2020 17:31:51
--- Generated from EDMX file: C:\Users\User\source\repos\ASP\上机考试系统\Models\DatabaseModel\Database.edmx
+-- Date Created: 12/22/2020 09:07:15
+-- Generated from EDMX file: C:\Users\LMZ\source\repos\ASP\上机考试系统\Models\DatabaseModel\Database.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -25,6 +25,9 @@ GO
 IF OBJECT_ID(N'[dbo].[Exam]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Exam];
 GO
+IF OBJECT_ID(N'[dbo].[ExamNotice]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ExamNotice];
+GO
 IF OBJECT_ID(N'[dbo].[student]', 'U') IS NOT NULL
     DROP TABLE [dbo].[student];
 GO
@@ -41,7 +44,9 @@ CREATE TABLE [dbo].[student] (
     [Id] int  NOT NULL,
     [name] nvarchar(10)  NULL,
     [ip_address] varchar(15)  NULL,
-    [pwd] varchar(20)  NOT NULL
+    [pwd] varchar(20)  NOT NULL,
+    [exam_Id] int  NULL,
+    [stuClass] int  NOT NULL
 );
 GO
 
@@ -64,8 +69,20 @@ CREATE TABLE [dbo].[Exam] (
     [is_being] nchar(1)  NULL,
     [has_saved] nchar(1)  NULL,
     [has_cleaned] nchar(1)  NULL,
-    [creator] nchar(10)  NULL,
-    [has_stopped] nchar(10)  NULL
+    [creator] nvarchar(10)  NULL,
+    [has_stopped] nchar(1)  NULL,
+    [PaperPath] nvarchar(150)  NULL,
+    [AnswerPath] nvarchar(150)  NULL
+);
+GO
+
+-- Creating table 'ExamNotice'
+CREATE TABLE [dbo].[ExamNotice] (
+    [Id] int  NOT NULL,
+    [time] nvarchar(50)  NULL,
+    [info] nvarchar(50)  NULL,
+    [exam_Id] int  NULL,
+    [sender] nvarchar(10)  NULL
 );
 GO
 
@@ -88,6 +105,12 @@ GO
 -- Creating primary key on [Id] in table 'Exam'
 ALTER TABLE [dbo].[Exam]
 ADD CONSTRAINT [PK_Exam]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ExamNotice'
+ALTER TABLE [dbo].[ExamNotice]
+ADD CONSTRAINT [PK_ExamNotice]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
