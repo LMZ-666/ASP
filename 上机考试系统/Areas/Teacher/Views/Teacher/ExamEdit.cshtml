@@ -186,6 +186,7 @@
     <div class="form1">
         <form style="margin-left: 30px;" action=@action1 method="post" enctype="multipart/form-data">
             <input type="file" name="testuploadfile">
+            <input type="hidden" name="Id" value=@ViewBag.exam_Id>
             <input type="submit" name="addtestbtn" value="上传" style="background: lightgray;">
         </form>
         @*
