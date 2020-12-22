@@ -55,38 +55,47 @@
         display: inline-flex;
         margin-top:5px;
     }
+    .bbggq {
+        margin-left: 150px;
+        margin-top: 7px;
+        width: 1360px;
+        height: 80px;
+        background: lightgray;
+        border-radius: 5px;
+        padding-top: 10px;
+    }
 </style>
-<div class="addtest">
+<div class="bbggq">
     <h2 style="margin: 10px 0 0 30px; font-size: 18px;">@ViewBag.Message</h2>
 </div>
 <div class="content">
     <div class="content1"
-         style="border-radius: 5px; width: 430px; background: lightgray; height: 460px;">
+         style="border-radius: 5px; width: 510px; background: lightgray; height: 460px;">
         <div class="content7">
             <h6 style="margin: 0px;">试卷部分&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h6>
             @*
             <button id="b1" style="background: lightgray;margin:0px;height:20px;width:120px">开始考试</button>
             *@
         </div>
-        <textarea id="t1"style="margin:0px;height:430px;width:430px" readonly="readonly">@ViewBag.Paper</textarea>
+        <textarea id="t1"style="margin:0px;height:430px;width:500px" readonly="readonly">@ViewBag.Paper</textarea>
 
     </div>
     <form method="post" action=@action>
         <div class="content4"
-             style="border-radius: 5px; width: 430px; background: lightgray; height: 460px;">
+             style="border-radius: 5px; width: 510px; background: lightgray; height: 460px;">
             <div class="content7">
                 <h6 style="margin: 0px;">
                     答卷部分&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                 </h6>
                 <button type="submit" name="addtestbtn" style="background: lightgray;margin:0px;height:20px;width:120px">提交答卷</button>
             </div>
-            <textarea name="PaperAnswer" style="width:410px;background:lightgray;height:420px"></textarea>
+            <textarea name="PaperAnswer" style="width:510px;background:lightgray;height:420px"></textarea>
         </div>
     </form>
     <div class="content6"
-         style="border-radius: 5px; width: 120px; background: lightgray; height: 460px">
+         style="border-radius: 5px; width: 220px; background: lightgray; height: 460px">
         <h6 style="margin: 0px;">考中通告</h6>
-        <textarea style="margin:0px;height:430px;width:120px" readonly="readonly" id="t2" >@ViewBag.TeacherInform</textarea>
+        <textarea style="margin:0px;height:430px;width:220px" readonly="readonly" id="t2" >@ViewBag.TeacherInform</textarea>
         
 
     </div>

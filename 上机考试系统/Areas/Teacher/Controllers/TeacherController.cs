@@ -523,11 +523,13 @@ namespace 上机考试系统.Areas.Teacher.Controllers
 
         public ActionResult AfterTest_Download(int exam_Id)
         {
-            Exam EX = db.Exam.Find(ExamId);
+            
+            Exam EX = db.Exam.Find(exam_Id);
             String APath = EX.AnswerPath;
             FileStream fs1 = new FileStream(APath, FileMode.Open, FileAccess.Read);
-            var fileName = string.Format("{0}_{1}_{2}", EX.time, EX.name, EX.creator);
-            FileStream fs2 = new FileStream(Server.MapPath(string.Format("~/{0}",fileName)), FileMode.Create, FileAccess.Write);
+
+            var fileName = APath.Replace(Server.MapPath(string.Format("~/Areas/{0}", "PaperAnswer")), "");
+            FileStream fs2 = new FileStream(string.Format(@"C:\Users\User\Desktop\data\{0}", fileName), FileMode.Create, FileAccess.Write);
             int num ;
             byte[] buffer = new byte[1024];
             do
