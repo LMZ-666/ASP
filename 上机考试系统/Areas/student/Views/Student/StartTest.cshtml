@@ -100,7 +100,7 @@
     });
     function showInform() {
         @{
-            StringBuilder sb=new StringBuilder();
+            String sb="";
             DatabaseEntities db = new DatabaseEntities();
             var g = from t in db.ExamNotice
                     where t.exam_Id == Model.Id
@@ -108,11 +108,10 @@
             List<ExamNotice> ls= g.ToList();
             foreach(var m in ls)
             {
-                sb.AppendLine(m.info);
+                sb = sb + m.time + "(" + m.sender + "):" + m.info + "                      ";
             }
         }
-        $("#t2").html(@sb);
-        debugger;
+        $("#t2").html("@sb");
 
     }
 </script>
