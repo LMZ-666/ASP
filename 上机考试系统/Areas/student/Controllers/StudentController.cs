@@ -14,14 +14,14 @@ namespace 上机考试系统.Areas.student.Controllers
     {
         DatabaseEntities db = new DatabaseEntities();
         static int MyId;
-        static int MyTestId;
+        public static int MyTestId;
         static String MyStudentName;
         static String TestTime;
         static String TestName;
         static String SavePath;
         // GET: student/Student
 
-        public ActionResult InitStudent(int StudentId)
+        public ActionResult InitStudent(int StudentId=0)
         {
             Student ST = db.student.Find(StudentId);
             MyId = StudentId;
@@ -35,7 +35,12 @@ namespace 上机考试系统.Areas.student.Controllers
             
             String PaperAnswer = Request.Form["PaperAnswer"];
             byte[] data = Encoding.UTF8.GetBytes(PaperAnswer);
-            SavePath = String.Format(@"C:\Users\User\Desktop\data\{2}_{3}_{0}_{1}.txt",MyId.ToString(), MyStudentName,TestName,TestTime);
+            var filePath = Server.MapPath(string.Format("~/Areas/{0}", "PaperAnswer"));
+            var fileName = string.Format("{2}_{3}_{0}_{1}.txt", MyId.ToString(), MyStudentName, TestName, TestTime);
+            SavePath = Path.Combine(filePath, fileName);
+            Exam EX = db.Exam.Find(MyTestId);
+            EX.AnswerPath = SavePath;
+            db.SaveChanges();
             FileStream fs = new FileStream(SavePath, FileMode.Create, FileAccess.ReadWrite);
             fs.Write(data, 0, data.Length);
             fs.Close();
@@ -53,11 +58,17 @@ namespace 上机考试系统.Areas.student.Controllers
         {
 
             Exam EX = db.Exam.Find(MyTestId);
-            TestName = EX.name;
-            TestTime = EX.time;
             String str;
             if(EX!=null)
             {
+                TestName = EX.name;
+                TestTime = EX.time;
+                /*
+                String paperpath = EX.PaperPath;
+                FileStream fs = new FileStream(paperpath, FileMode.Open, FileAccess.Read);
+                StreamReader sr = new StreamReader(fs);
+                ViewBag.Paper = sr.ReadToEnd();
+                */
                 str = String.Format("本场考试的科目名称为：{0}，考试时间为：{1}，监考教师是：{2}", EX.name, EX.time, EX.creator);
             }
             else
@@ -83,10 +94,12 @@ namespace 上机考试系统.Areas.student.Controllers
                 ViewBag.PaperAnswer = "";
                 ViewBag.SubmitResult = "找不到已提交答案，请重新提交";
             }
-
-
-
-
+            return View();
+        }
+        public ActionResult CheckedIPAddress()
+        {
+            Student stu = db.student.Find(MyId);
+            ViewBag.IPAddress = stu.ip_address;
             return View();
         }
     }

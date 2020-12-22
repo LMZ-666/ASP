@@ -20,6 +20,8 @@
           <Property Name="has_cleaned" Type="nchar" MaxLength="1" />
           <Property Name="creator" Type="nchar" MaxLength="10" />
           <Property Name="has_stopped" Type="nchar" MaxLength="1" />
+          <Property Name="PaperPath" Type="nvarchar" MaxLength="150" />
+          <Property Name="AnswerPath" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="ExamNotice">
           <Key>
@@ -100,6 +102,8 @@
           <Property Name="has_cleaned" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="creator" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="has_stopped" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="PaperPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ExamNotice">
           <Key>
@@ -141,6 +145,8 @@
           <EntitySetMapping Name="Exam">
             <EntityTypeMapping TypeName="DatabaseModel.Exam">
               <MappingFragment StoreEntitySet="Exam">
+                <ScalarProperty Name="AnswerPath" ColumnName="AnswerPath" />
+                <ScalarProperty Name="PaperPath" ColumnName="PaperPath" />
                 <ScalarProperty Name="has_stopped" ColumnName="has_stopped" />
                 <ScalarProperty Name="creator" ColumnName="creator" />
                 <ScalarProperty Name="has_cleaned" ColumnName="has_cleaned" />

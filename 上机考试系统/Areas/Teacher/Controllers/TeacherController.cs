@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices.ComTypes;
@@ -15,6 +16,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
     {
         public static String TEACHER;
         public static int TEACHERID;
+        public static int ExamId;
         private DatabaseEntities db = new DatabaseEntities();
         // GET: Teacher/Teacher
         public ActionResult Initial(String teacherName, int teacherId)
@@ -45,12 +47,13 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             exam1.Id = 0;
             foreach (var item in db.Exam.ToList())
             {
-                if(exam.Id<item.Id)
+                if(exam1.Id<item.Id)
                 {
                     exam1.Id = item.Id;
                 }
             }
             exam.Id = exam1.Id + 1;
+            ExamId = exam.Id;
             exam.creator = TEACHER;
             exam.creatorId = TEACHERID;
             exam.has_cleaned = "否";
@@ -523,6 +526,19 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             db.Exam.Remove(exam1);
             db.SaveChanges();
             return RedirectToAction("AfterTest");
+        }
+
+        [HttpPost]
+        public ActionResult SubmitPaper()
+        {
+            HttpPostedFileBase FileData = Request.Files["testuploadfile"];
+            Exam EX = db.Exam.Find(ExamId);
+            var fileName = string.Format("{0}_{1}_{2}", EX.time, EX.name, EX.creator);
+            var filePath = Server.MapPath(string.Format("~/Areas/{0}", "Paper"));
+            EX.PaperPath = Path.Combine(filePath, fileName);
+            db.SaveChanges();
+            FileData.SaveAs(EX.PaperPath);
+            return Json("上传成功！");
         }
     }
 }

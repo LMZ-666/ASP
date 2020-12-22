@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "ExamEdit";
     Layout = "~/Areas/Teacher/Views/Shared/_TeacherLayout.cshtml";
+    var action1 = Url.Action("SubmitPaper", "Teacher");
 }
 
 <!DOCTYPE html>
@@ -145,8 +146,6 @@
             opacity: 0.9 !important;
         }
     </style>
-
-
     <script type="text/javascript">
         function disp() {
             for (var i = 0; i < 4; i++) {
@@ -166,6 +165,7 @@
             window.location.href = "begintest.jsp";
         }
     </script>
+
 </head>
 <br>
 <div class="addtest">
@@ -184,13 +184,14 @@
 <div class="uploadexamfile">
     <h2 style="margin: 10px 0 5px 30px;font-size: 16px;">上传试卷</h2>
     <div class="form1">
-        <form style="margin-left: 30px;" action="" method="post" enctype="multipart/form-data">
-
+        <form style="margin-left: 30px;" action=@action1 method="post" enctype="multipart/form-data">
             <input type="file" name="testuploadfile">
-
-
             <input type="submit" name="addtestbtn" value="上传" style="background: lightgray;">
         </form>
+        @*
+            @using (Html.BeginForm("SubmitPaper", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {<input type="file" name="uploadFile" /><input type="submit" value="上传" />}
+        *@
     </div>
 </div>
 
@@ -215,10 +216,10 @@
         <h2 style="margin: 10px 0 5px 30px;font-size: 16px;">开启考试</h2>
         <p style="margin-left: 30px;margin-top: 4px;">
             当前没有考试正在进行。
-                       <form style="margin-left: 30px;" action="ExamEdit_being" method="post">
-                           <input type="hidden" name="id" value=@ViewBag.exam_Id>
-                           <input type="submit" name="button1" value="开启本考试" >
-                       </form>
+            <form style="margin-left: 30px;" action="ExamEdit_being" method="post">
+                <input type="hidden" name="id" value=@ViewBag.exam_Id>
+                <input type="submit" name="button1" value="开启本考试">
+            </form>
         </p>
     </div>
 }

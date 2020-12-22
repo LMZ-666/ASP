@@ -229,6 +229,8 @@
     <Content Include="Areas\Teacher\Views\Teacher\RemoveBinding.cshtml" />
     <Content Include="Areas\Teacher\Views\Teacher\ExamInform.cshtml" />
     <Content Include="Areas\Teacher\Views\Teacher\AfterTest.cshtml" />
+    <Content Include="Areas\student\Views\Student\CheckedAnswer.cshtml" />
+    <Content Include="Areas\student\Views\Student\CheckedIPAddress.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -258,6 +260,8 @@
     <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\PaperAnswer\" />
+    <Folder Include="Areas\Paper\" />
     <Folder Include="Areas\student\Data\" />
     <Folder Include="Areas\Teacher\Data\" />
     <Folder Include="Views\students\" />

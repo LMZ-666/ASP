@@ -162,7 +162,8 @@
             @Ajax.ActionLink("查看已交答案", "CheckedAnswer", "Student", new { area = "student" }, ajaxOptions, new { @class = "li1" });
         </div>
         <div class="divli">
-            <a class="li1" href="">查看已绑定的IP地址</a>
+            @*<a class="li1" href="">查看已绑定的IP地址</a>*@
+            @Ajax.ActionLink("查看已绑定的IP地址", "CheckedIPAddress", "Student", new { area = "student" }, ajaxOptions, new { @class = "li1" });
         </div>
 
         <div class="divli" id="divli1">
