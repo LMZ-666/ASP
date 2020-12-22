@@ -85,11 +85,12 @@ namespace 上机考试系统.Controllers
                             ST.name = stu.name;
                             ST.pwd = stu.pwd;
                             ST.ip_address = Student.ip_address;
+                            ST.stuClass = stu.stuClass;
                             ST.exam_Id = stu.exam_Id;
                             db.student.Remove(stu);
                             db.student.Add(ST);
                             db.SaveChanges();
-                            return RedirectToAction("InitStudent", "Student", new { area = "Student", studentId = stu.Id });
+                            return RedirectToAction("InitStudent", "Student", new { area = "Student",StudentId=stu.Id});
 
                             
                         }

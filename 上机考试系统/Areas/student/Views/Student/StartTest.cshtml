@@ -1,11 +1,11 @@
 ﻿@model 上机考试系统.Models.DatabaseModel.Exam
+@using 上机考试系统.Models.DatabaseModel
+@using System.Text
 @{
     ViewBag.Title = "StartTest";
     var action = Url.Action("SubmitAnswer", "Student");
 }
-
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <link href="~/StyleSheet1.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
     .content {
@@ -64,9 +64,11 @@
          style="border-radius: 5px; width: 430px; background: lightgray; height: 460px;">
         <div class="content7">
             <h6 style="margin: 0px;">试卷部分&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h6>
+            @*
             <button id="b1" style="background: lightgray;margin:0px;height:20px;width:120px">开始考试</button>
+            *@
         </div>
-        <textarea id="t1"style="margin:0px;height:430px;width:430px" readonly="readonly"></textarea>
+        <textarea id="t1"style="margin:0px;height:430px;width:430px" readonly="readonly">@ViewBag.Paper</textarea>
 
     </div>
     <form method="post" action=@action>
@@ -84,7 +86,7 @@
     <div class="content6"
          style="border-radius: 5px; width: 120px; background: lightgray; height: 460px">
         <h6 style="margin: 0px;">考中通告</h6>
-        <textarea style="margin:0px;height:430px;width:120px" readonly="readonly" >@ViewBag.TeacherInform</textarea>
+        <textarea style="margin:0px;height:430px;width:120px" readonly="readonly" id="t2" >@ViewBag.TeacherInform</textarea>
         
 
     </div>
@@ -94,13 +96,23 @@
 <script>
     var handle;
     $(function () {
-        $('#t1').html(1111);
-        $("#b1").click(function () { showPaper();});
+        handle = setInterval(showInform, 3000);
     });
     function showInform() {
+        @{
+            StringBuilder sb=new StringBuilder();
+            DatabaseEntities db = new DatabaseEntities();
+            var g = from t in db.ExamNotice
+                    where t.exam_Id == Model.Id
+                    select t;
+            List<ExamNotice> ls= g.ToList();
+            foreach(var m in ls)
+            {
+                sb.AppendLine(m.info);
+            }
+        }
+        $("#t2").html(@sb);
+        debugger;
 
-    }
-    function showPaper() {
-        $('#t1').html(2222);
     }
 </script>

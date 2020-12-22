@@ -21,7 +21,7 @@ namespace 上机考试系统.Areas.student.Controllers
         static String SavePath;
         // GET: student/Student
 
-        public ActionResult InitStudent(int StudentId=0)
+        public ActionResult InitStudent(int StudentId)
         {
             Student ST = db.student.Find(StudentId);
             MyId = StudentId;
@@ -39,6 +39,7 @@ namespace 上机考试系统.Areas.student.Controllers
             var fileName = string.Format("{2}_{3}_{0}_{1}.txt", MyId.ToString(), MyStudentName, TestName, TestTime);
             SavePath = Path.Combine(filePath, fileName);
             Exam EX = db.Exam.Find(MyTestId);
+            EX.commmit_number += 1;
             EX.AnswerPath = SavePath;
             db.SaveChanges();
             FileStream fs = new FileStream(SavePath, FileMode.Create, FileAccess.ReadWrite);
