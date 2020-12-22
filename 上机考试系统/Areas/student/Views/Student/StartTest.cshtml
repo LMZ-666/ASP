@@ -3,6 +3,9 @@
     ViewBag.Title = "StartTest";
     var action = Url.Action("SubmitAnswer", "Student");
 }
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
 <link href="~/StyleSheet1.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
     .content {
@@ -63,7 +66,7 @@
             <h6 style="margin: 0px;">试卷部分&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h6>
             <button id="b1" style="background: lightgray;margin:0px;height:20px;width:120px">开始考试</button>
         </div>
-        <textarea id="t1"style="margin:0px;height:430px;width:430px" readonly="readonly">@ViewBag.Paper</textarea>
+        <textarea id="t1"style="margin:0px;height:430px;width:430px" readonly="readonly"></textarea>
 
     </div>
     <form method="post" action=@action>
@@ -90,22 +93,14 @@
 </div>
 <script>
     var handle;
-    $("#b1").click(function () {
-        showPaper();
+    $(function () {
+        $('#t1').html(1111);
+        $("#b1").click(function () { showPaper();});
     });
     function showInform() {
 
     }
     function showPaper() {
-        @{ 
-            String paperpath = Model.PaperPath;
-            FileStream fs = new FileStream(paperpath, FileMode.Open, FileAccess.Read);
-            StreamReader sr = new StreamReader(fs);
-        }
-        @*$('#t1').html(@sr.ReadToEnd());
-        @*document.getElementById('t1').innerHTML=@sr.ReadToEnd();*@
-        @{ 
-            fs.Close();
-        }
+        $('#t1').html(2222);
     }
 </script>

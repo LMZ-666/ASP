@@ -89,7 +89,7 @@ namespace 上机考试系统.Controllers
                             db.student.Remove(stu);
                             db.student.Add(ST);
                             db.SaveChanges();
-                            return RedirectToAction("InitStudent", "Student", new { area = "Student",TestId=stu.exam_Id});
+                            return RedirectToAction("InitStudent", "Student", new { area = "Student", studentId = stu.Id });
 
                             
                         }
