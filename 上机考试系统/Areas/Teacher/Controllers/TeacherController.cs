@@ -551,10 +551,10 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         }
 
         [HttpPost]
-        public ActionResult SubmitPaper()
+        public ActionResult SubmitPaper(int Id)
         {
             HttpPostedFileBase FileData = Request.Files["testuploadfile"];
-            Exam EX = db.Exam.Find(ExamId);
+            Exam EX = db.Exam.Find(Id);
             var fileName = string.Format("{0}_{1}_{2}", EX.time, EX.name, EX.creator);
             var filePath = Server.MapPath(string.Format("~/Areas/{0}", "Paper"));
             EX.PaperPath = Path.Combine(filePath, fileName);
