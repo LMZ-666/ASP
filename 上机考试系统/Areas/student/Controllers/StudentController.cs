@@ -37,12 +37,12 @@ namespace 上机考试系统.Areas.student.Controllers
             byte[] data = Encoding.UTF8.GetBytes(PaperAnswer);
             var filePath = Server.MapPath(string.Format("~/Areas/{0}", "PaperAnswer"));
             var fileName = string.Format("{2}_{3}_{0}_{1}.txt", MyId.ToString(), MyStudentName, TestName, TestTime);
-            SavePath = Path.Combine(filePath, fileName);
             Exam EX = db.Exam.Find(MyTestId);
-            EX.commmit_number += 1;
-            EX.AnswerPath = SavePath;
+            Student ST = db.student.Find(MyId);
+            ST.SavePath = Path.Combine(filePath, fileName);
+            SavePath = ST.SavePath;
             db.SaveChanges();
-            FileStream fs = new FileStream(SavePath, FileMode.Create, FileAccess.ReadWrite);
+            FileStream fs = new FileStream(ST.SavePath, FileMode.Create, FileAccess.ReadWrite);
             fs.Write(data, 0, data.Length);
             fs.Close();
             return RedirectToAction("CheckedAnswer");

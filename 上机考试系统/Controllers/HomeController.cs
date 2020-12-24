@@ -87,6 +87,7 @@ namespace 上机考试系统.Controllers
                             ST.ip_address = Student.ip_address;
                             ST.stuClass = stu.stuClass;
                             ST.exam_Id = stu.exam_Id;
+                            ST.SavePath = stu.SavePath;
                             db.student.Remove(stu);
                             db.student.Add(ST);
                             db.SaveChanges();

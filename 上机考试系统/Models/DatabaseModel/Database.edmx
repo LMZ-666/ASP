@@ -4,61 +4,62 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DatabaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="DatabaseModelStoreContainer">
-    <EntitySet Name="student" EntityType="DatabaseModel.Store.student" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="teacher" EntityType="DatabaseModel.Store.teacher" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Exam" EntityType="DatabaseModel.Store.Exam" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ExamNotice" EntityType="DatabaseModel.Store.ExamNotice" store:Type="Tables" Schema="dbo" />
-  </EntityContainer>
-  <EntityType Name="student">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-    <Property Name="name" Type="nvarchar" Nullable="true" MaxLength="10" />
-    <Property Name="ip_address" Type="varchar" Nullable="true" MaxLength="15" />
-    <Property Name="pwd" Type="varchar" Nullable="false" MaxLength="20" />
-    <Property Name="exam_Id" Type="int" Nullable="true" />
-    <Property Name="stuClass" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="teacher">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-    <Property Name="name" Type="nvarchar" Nullable="true" MaxLength="10" />
-    <Property Name="pwd" Type="varchar" Nullable="false" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Exam">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-    <Property Name="name" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="time" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="creatorId" Type="int" Nullable="false" />
-    <Property Name="test_upload" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="commmit_number" Type="int" Nullable="true" />
-    <Property Name="is_being" Type="nchar" Nullable="true" MaxLength="1" />
-    <Property Name="has_saved" Type="nchar" Nullable="true" MaxLength="1" />
-    <Property Name="has_cleaned" Type="nchar" Nullable="true" MaxLength="1" />
-    <Property Name="creator" Type="nvarchar" Nullable="true" MaxLength="10" />
-    <Property Name="has_stopped" Type="nchar" Nullable="true" MaxLength="1" />
-    <Property Name="PaperPath" Type="nvarchar" Nullable="true" MaxLength="150" />
-    <Property Name="AnswerPath" Type="nvarchar" Nullable="true" MaxLength="150" />
-  </EntityType>
-  <EntityType Name="ExamNotice">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-    <Property Name="time" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="info" Type="nvarchar" Nullable="true" MaxLength="50" />
-    <Property Name="exam_Id" Type="int" Nullable="true" />
-    <Property Name="sender" Type="nvarchar" Nullable="true" MaxLength="10" />
-  </EntityType>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Exam">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="time" Type="nvarchar" MaxLength="50" />
+          <Property Name="creatorId" Type="int" Nullable="false" />
+          <Property Name="test_upload" Type="nvarchar" MaxLength="50" />
+          <Property Name="commmit_number" Type="int" />
+          <Property Name="is_being" Type="nchar" MaxLength="1" />
+          <Property Name="has_saved" Type="nchar" MaxLength="1" />
+          <Property Name="has_cleaned" Type="nchar" MaxLength="1" />
+          <Property Name="creator" Type="nchar" MaxLength="10" />
+          <Property Name="has_stopped" Type="nchar" MaxLength="1" />
+          <Property Name="PaperPath" Type="nvarchar" MaxLength="150" />
+          <Property Name="AnswerPath" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="ExamNotice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="time" Type="nvarchar" MaxLength="50" />
+          <Property Name="info" Type="nvarchar" MaxLength="50" />
+          <Property Name="exam_Id" Type="int" />
+          <Property Name="sender" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="10" />
+          <Property Name="ip_address" Type="varchar" MaxLength="15" />
+          <Property Name="pwd" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="exam_Id" Type="int" />
+          <Property Name="stuClass" Type="int" Nullable="false" />
+          <Property Name="SavePath" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="teacher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="10" />
+          <Property Name="pwd" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="Exam" EntityType="Self.Exam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExamNotice" EntityType="Self.ExamNotice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="student" EntityType="Self.student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="teacher" EntityType="Self.teacher" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -72,6 +73,7 @@
           <Property Name="pwd" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="exam_Id" Type="Int32" />
           <Property Name="stuClass" Type="Int32" Nullable="false" />
+          <Property Name="SavePath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="DatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="student" EntityType="DatabaseModel.Student" />
@@ -100,7 +102,7 @@
           <Property Name="is_being" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="has_saved" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="has_cleaned" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
-          <Property Name="creator" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="creator" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="has_stopped" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
           <Property Name="PaperPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="AnswerPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
@@ -124,7 +126,8 @@
     <EntitySetMapping Name="student">
       <EntityTypeMapping TypeName="IsTypeOf(DatabaseModel.Student)">
         <MappingFragment StoreEntitySet="student">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SavePath" ColumnName="SavePath" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="ip_address" ColumnName="ip_address" />
           <ScalarProperty Name="pwd" ColumnName="pwd" />
