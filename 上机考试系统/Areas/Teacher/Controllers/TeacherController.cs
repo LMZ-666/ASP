@@ -524,23 +524,26 @@ namespace 上机考试系统.Areas.Teacher.Controllers
 
         public ActionResult AfterTest_Download(int exam_Id)
         {
-            var g = from t in db.student
+            var g = from t in db.student                                //获取参加该场考试的所有学生
                     where t.exam_Id == exam_Id
-                    select t;
+                    select t;                                               
             foreach(var m in g.ToList())
             {
-                FileStream fs1 = new FileStream(m.SavePath, FileMode.Open, FileAccess.Read);
-                var fileName = m.SavePath.Replace(Server.MapPath(string.Format("~/Areas/{0}", "PaperAnswer")), "");
-                FileStream fs2 = new FileStream(string.Format(@"C:\Users\User\Desktop\data\{0}", fileName), FileMode.Create, FileAccess.Write);
-                int num;
-                byte[] buffer = new byte[1024];
-                do
+                if (m.SavePath != null)                              //判断参加这场考试的每个学生是否提交了答案
                 {
-                    num = fs1.Read(buffer, 0, buffer.Length);
-                    fs2.Write(buffer, 0, num);
-                } while (num > 0);
-                fs1.Close();
-                fs2.Close();
+                    FileStream fs1 = new FileStream(m.SavePath, FileMode.Open, FileAccess.Read);            //若提交了答案就会有答案路径，流读取答案路径的文件
+                    var fileName = m.SavePath.Replace(Server.MapPath(string.Format("~/Areas/{0}", "PaperAnswer")), "");             //初始化文件名
+                    FileStream fs2 = new FileStream(string.Format(@"C:\Users\User\Desktop\data\{0}", fileName), FileMode.Create, FileAccess.Write);   //将要打包的答案输入到对应的路径，这里的路径时桌面的data
+                    int num;                                                                           //用于判断流是否读完
+                    byte[] buffer = new byte[1024];                       //字节数组用于限制上传速度，这里设置了每次下1024bit(1kb)
+                    do
+                    {
+                        num = fs1.Read(buffer, 0, buffer.Length);        //获取每次读取的长度
+                        fs2.Write(buffer, 0, num);                      //将读到的长度的字节数组全部输入到对应的路径
+                    } while (num > 0);
+                    fs1.Close();
+                    fs2.Close();                                     //流的关闭
+                }
             }
             return RedirectToAction("AfterTest");
         }
@@ -556,13 +559,13 @@ namespace 上机考试系统.Areas.Teacher.Controllers
         [HttpPost]
         public ActionResult SubmitPaper(int Id)
         {
-            HttpPostedFileBase FileData = Request.Files["testuploadfile"];
-            Exam EX = db.Exam.Find(Id);
-            var fileName = string.Format("{0}_{1}_{2}", EX.time, EX.name, EX.creator);
-            var filePath = Server.MapPath(string.Format("~/Areas/{0}", "Paper"));
-            EX.PaperPath = Path.Combine(filePath, fileName);
+            HttpPostedFileBase FileData = Request.Files["testuploadfile"];          //获取选择的文件
+            Exam EX = db.Exam.Find(Id);                                             //通过考试ID获取该场考试的信息
+            var fileName = string.Format("{0}_{1}_{2}", EX.time, EX.name, EX.creator);  //初始化试卷文件名
+            var filePath = Server.MapPath(string.Format("~/Areas/{0}", "Paper"));       //初始化试卷路径（不包括文件名）
+            EX.PaperPath = Path.Combine(filePath, fileName);                            //将试卷路径保存到数据库
             db.SaveChanges();
-            FileData.SaveAs(EX.PaperPath);
+            FileData.SaveAs(EX.PaperPath);                                           //将选择的文件保存到试卷路径
             return Json("上传成功！");
         }
     }

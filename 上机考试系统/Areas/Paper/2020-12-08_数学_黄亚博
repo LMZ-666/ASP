@@ -1,0 +1,139 @@
+#include <iostream>
+using namespace std;
+
+typedef struct node
+{
+	int ProcessNumber;		//进程名(数字) 
+	struct node *next;		//下一进程地址指针 
+	int RequireTime;		//要求运行时间 
+	int RunTime;		//已运行时间 
+	bool status;			//当前状态，0为就绪，1为结束 
+}pcb_node;
+
+
+void create_pcb(pcb_node *first, pcb_node *second, pcb_node *third, pcb_node *fourth, pcb_node *fifth)
+{	
+	//按照要求初始化 pcb 
+	first->next = second;
+	first->ProcessNumber = 1;
+	first->RunTime = 0;
+	first->status = 0;
+	
+	second->next = third;
+	second->ProcessNumber = 2;
+	second->RunTime = 0;
+	second->status = 0;
+	
+	third->next = fourth;
+	third->ProcessNumber = 3;
+	third->RunTime = 0;
+	third->status = 0;
+	
+	fourth->next = fifth;
+	fourth->ProcessNumber = 4;
+	fourth->RunTime = 0;
+	fourth->status = 0;
+	
+	fifth->next = first;			//构成循环队列 
+	fifth->ProcessNumber = 5;
+	fifth->RunTime = 0;
+	fifth->status = 0;
+}
+
+
+void input_pcb(pcb_node *first)		//输入每个进程的要求运行时间 
+{
+	pcb_node *temp = new pcb_node();
+	temp = first;
+	int i,time;
+	cout<<"***************Require to input the run time***************"<<endl;
+	
+	for(i=1;i<=5;i++)
+	{
+		cout<<endl<<"Please input the"<<i<<" process run time：";
+		cin>>time;
+		temp->RequireTime = time;
+		temp = temp->next;
+	}
+}
+
+
+void run_pcb(pcb_node *first)
+{
+	pcb_node *temp = new pcb_node();
+	temp->next = first;
+	cout<<endl<<"*******************Process Dispatch*******************";
+	int i;
+	
+	for(i=1;i<=50;i++)				//显示每一次进程调度的情况 
+	{
+		cout<<endl<<endl<<"**The"<<i<<"time dispatch**";
+		cout<<endl<<"Current process：Q"<<temp->next->ProcessNumber;
+		cout<<endl<<"Ready process：";
+		pcb_node *check = new pcb_node();
+		check = temp->next;
+		int ready_num = 0;
+		
+		while(check->next != temp->next)	//按序输出就绪进程队列 
+		{
+			check = check->next;
+			if(check->status == 0)
+			{
+			cout<<"Q"<<check->ProcessNumber<<"；";
+			ready_num = ready_num + 1;
+			}
+		}
+		
+		if(ready_num == 0 && temp->next->status == 0)	//针对只剩下一个进程的情况 
+		{
+			cout<<"There is no ready process";
+			int j;
+			for(j=1;j<temp->next->RequireTime;j++)
+			{
+				cout<<endl<<endl<<"**The "<<i+j<<" time dispatch**";
+				cout<<endl<<"Current Process：Q"<<temp->next->ProcessNumber;
+			}
+			cout<<endl<<endl<<"*****************All task complete*****************"<<endl;
+			break;
+		}
+		
+		temp->next->RequireTime --;
+		temp->next->RunTime ++;
+		
+		if(temp->next->RequireTime == 0)		//退出进程 
+		{
+			if(i == 1)		//针对第一次调度去掉Q1的情况 
+			{
+				temp->next->next->next->next->next->next = temp->next->next;
+			}
+			temp->next->status = 1;
+			cout<<endl<<"Q"<<temp->next->ProcessNumber<<"Process ends，quit";
+			cout<<endl<<"Run time of the process："<<temp->next->RunTime;
+			temp->next = temp->next->next; 
+			continue;
+		}
+		
+		temp = temp->next;
+	}
+} 
+
+
+int main()
+{
+	pcb_node *first = new pcb_node();
+	pcb_node *second = new pcb_node();
+	pcb_node *third = new pcb_node();
+	pcb_node *fourth = new pcb_node();
+	pcb_node *fifth = new pcb_node();		//固定创立五个进程指针 
+	
+	cout<<"Caption：There are five processes.And then initial process"<<endl<<endl; 
+	
+	create_pcb(first, second, third, fourth, fifth);
+	
+	input_pcb(first);
+	
+	run_pcb(first);
+	
+	
+	return 0;
+}
