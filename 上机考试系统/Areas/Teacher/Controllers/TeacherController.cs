@@ -483,7 +483,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             examNotice.exam_Id = exam.Id;
             db.ExamNotice.Add(examNotice);
             db.SaveChanges();
-
+            // 获取本次考试的考试通知列表
             var g = from t in db.ExamNotice
                     where t.exam_Id == exam.Id
                     select t;
@@ -519,6 +519,7 @@ namespace 上机考试系统.Areas.Teacher.Controllers
             db.SaveChanges();
             db.Exam.Add(exam);
             db.SaveChanges();
+            // 删除本次考试的所有考中通告
             var g = db.ExamNotice.ToList();
             foreach(var item in g)
             {
