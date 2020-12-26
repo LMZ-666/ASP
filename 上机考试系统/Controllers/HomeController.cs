@@ -47,38 +47,37 @@ namespace 上机考试系统.Controllers
             Student stu = db.student.Find(Student.Id);
 
             //根据查到的表对象进行判断(若为空，说明Id输入错误)
-            if (stu != null)
-                if (stu.pwd == Student.pwd)
+            if (stu != null)                                                       //判断有没有这个ID号的学生
+                if (stu.pwd == Student.pwd)                                         //判断学生的账号密码是否相同
                 {
                     
-                    IPHostEntry host = Dns.GetHostEntry("");
+                    IPHostEntry host = Dns.GetHostEntry("");                    //获取该学生登录的IP地址
                     var ipAdresses = host.AddressList;
                     Student.ip_address = ipAdresses[5].ToString();
-                    var g = from t in db.student
+                    var g = from t in db.student          //寻找数据库中和该学生登录IP一样的学生信息，用于验证，防止替考 
                             where t.ip_address == Student.ip_address&&t.ip_address!=null
                             select t;
                     List<Student> p = g.ToList();
-                    if (stu.ip_address != null)
+                    if (stu.ip_address != null)             //若地址不为空，则该ID学生已经进行IP绑定
                     {
 
-                        if (stu.ip_address == Student.ip_address)
+                        if (stu.ip_address == Student.ip_address)  //判断该学生IP与数据库中的IP是否一致，一致则允许登录
                         {
                             return RedirectToAction("InitStudent", "Student", new { area = "student", studentId = stu.Id});
                         }
-                        else
+                        else                             //不一致表明该学生用了其他IP地址登录，有可能是替考，则不允许登录
                         {
                             return Content("<script >alert('登录的IP地址非法');window.open('" + Url.Content("/Home/Login") + "', '_self')</script >", "text/html");
                         }
                     }
-                    else
+                    else                               //若地址为空，则该学生是第一次登录考试系统，要进行IP地址绑定
                     {
                         
-                        if (p.Count != 0)
+                        if (p.Count != 0)      //上面Linq查找学生信息的列表，如果不为空，则表明之前有人已经注册过该IP，不允许注册
                         {
                             return Content("<script >alert('登录的IP地址非法');window.open('" + Url.Content("/Home/Login") + "', '_self')</script >", "text/html");
-
                         }
-                        else
+                        else                 //若为空，则对其进行IP地址绑定，跳转到学生界面
                         {
                             Student ST = new Student();
                             ST.Id = stu.Id;
@@ -91,17 +90,14 @@ namespace 上机考试系统.Controllers
                             db.student.Remove(stu);
                             db.student.Add(ST);
                             db.SaveChanges();
-                            return RedirectToAction("InitStudent", "Student", new { area = "Student",StudentId=stu.Id});
-
-                            
+                            return RedirectToAction("InitStudent", "Student", new { area = "Student",StudentId=stu.Id});              
                         }
-
                     }
                 }
                 else
-                    return Content("<script >alert('账号或密码错误');window.open('" + Url.Content("/Home/Login") + "', '_self')</script >", "text/html");
+                    return Content("<script >alert('账号或密码错误');window.open('" + Url.Content("/Home/Login") + "', '_self')</script >", "text/html");  //账号密码错误
             else
-                return Content("<script >alert('账号或密码错误');window.open('" + Url.Content("/Home/Login") + "', '_self')</script >", "text/html");
+                return Content("<script >alert('账号或密码错误');window.open('" + Url.Content("/Home/Login") + "', '_self')</script >", "text/html");   //找不到该学生ID
             
         }
 
