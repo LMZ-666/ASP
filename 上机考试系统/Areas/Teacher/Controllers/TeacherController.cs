@@ -529,18 +529,21 @@ namespace 上机考试系统.Areas.Teacher.Controllers
                     select t;
             foreach(var m in g.ToList())
             {
-                FileStream fs1 = new FileStream(m.SavePath, FileMode.Open, FileAccess.Read);
-                var fileName = m.SavePath.Replace(Server.MapPath(string.Format("~/Areas/{0}", "PaperAnswer")), "");
-                FileStream fs2 = new FileStream(string.Format(@"C:\Users\User\Desktop\data\{0}", fileName), FileMode.Create, FileAccess.Write);
-                int num;
-                byte[] buffer = new byte[1024];
-                do
+                if (m.SavePath != null)
                 {
-                    num = fs1.Read(buffer, 0, buffer.Length);
-                    fs2.Write(buffer, 0, num);
-                } while (num > 0);
-                fs1.Close();
-                fs2.Close();
+                    FileStream fs1 = new FileStream(m.SavePath, FileMode.Open, FileAccess.Read);
+                    var fileName = m.SavePath.Replace(Server.MapPath(string.Format("~/Areas/{0}", "PaperAnswer")), "");
+                    FileStream fs2 = new FileStream(string.Format(@"C:\Users\LMZ\Desktop\Answer\{0}", fileName), FileMode.Create, FileAccess.Write);
+                    int num;
+                    byte[] buffer = new byte[1024];
+                    do
+                    {
+                        num = fs1.Read(buffer, 0, buffer.Length);
+                        fs2.Write(buffer, 0, num);
+                    } while (num > 0);
+                    fs1.Close();
+                    fs2.Close();
+                }
             }
             return RedirectToAction("AfterTest");
         }
